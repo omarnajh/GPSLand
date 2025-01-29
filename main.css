@@ -1,0 +1,77 @@
+html {
+    height: 100%;
+  }
+  
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #map {
+    height: 70%;
+    width: 90%;
+    margin: auto;
+    padding-bottom:10px;
+  }
+  #farme {
+    width: 90%;
+    gap: 20px;
+    margin: auto;
+    justify-content: flex-end;
+    display: flex; 
+  }
+ textarea {  
+    width: 50%;  
+    height: 200px; 
+    resize: none;   
+    border: 1px solid #ccc;   
+    border-radius: 4px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;  
+}  
+#GO {
+  background-color: #04AA6D; /* Green */
+  color: white;
+  padding: 15px 32px;
+  border: 2px solid #04AA6D;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+#GO:hover {
+  background-color: #cfdad6; /* Green */
+  color: white;
+}
+#GO:active {
+  background-color: #65cda7; /* Green */
+  color: white;
+}
+#favcolor {
+  border: 2px solid #04AA6D;
+  height: 48px;
+}
+#divshowalldata {
+  display: flex;
+  margin: auto;
+  width: 90%;
+}
+#showdata {
+  width: 50%;
+}
+#showpintdata {
+  text-align: right;
+}
+.tag{
+  text-align: right;
+}
+#name_agl {
+  height: 48px;
+}
+#radiodata{
+  text-align: right;
+  padding: 1% 1% 1% 30%;
+  display: flex;
+}
+

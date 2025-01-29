@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "puppeteer": "^23.4.0",
+    "utm-latlng": "^1.0.8"
+  }
+}

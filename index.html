@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>تحديد الاحداثيات</title>
+  <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <script src="https://cdn.jsdelivr.net/npm/proj4@2.12.1/dist/proj4.min.js"></script>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?&libraries=geometry" ></script>
+  <script src="maincode.js"></script>
+  <div id="divshowalldata">
+    <textarea placeholder="GPS نقاط" id="story" name="story" ></textarea>
+  <div id ="showdata">
+   <H3 id="showpintdata">المسافة بين النقاط</H3>
+   </div>
+</div>
+  <div id="farme">
+    <button id="GO">ارسم</button>
+      <label><input type="color" id="favcolor" name="favcolor" value="#ff0000">    لون الرسم  </label>
+      <label for=""><input type="text" id="name_agl">اسم الفلاح    </label>
+    </div>
+    <div id="radiodata">
+      <label for="html">طرق</label>
+      <input type="radio" id="r1" name="fav_language" value="roadmap" checked="checked"><br>
+      <label for="css">اقمار صناعية</label>
+      <input type="radio" id="r2" name="fav_language" value="satellite"><br>
+      <label for="css">هجين</label>
+      <input type="radio" id="r3" name="fav_language" value="hybrid"><br>
+      <label for="css">تضاريس</label>
+      <input type="radio" id="r4" name="fav_language" value="terrain"><br>
+      <button type="button" onclick="getRadioValue()">تغيير نوع الخريطة</button> 
+      <label for="html" >GPS_UTM = </label>
+      <label for="html" id="gpsutmdata"></label>
+   </div>
+</body>
+</html>

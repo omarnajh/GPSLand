@@ -18,6 +18,31 @@ const map = new google.maps.Map(document.getElementById("map"), {
   google.maps.event.addListener(map, 'rightclick', function(event) {
     getCoordinates(event.latLng);
   });
+  if (navigator.geolocation) {
+    var marker;
+    navigator.geolocation.watchPosition(function(position) {
+      var currentLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(currentLocation);
+
+      // Add or update the marker for the current location
+      if (!marker) {
+        marker = new google.maps.Marker({
+          position: currentLocation,
+          map: map,
+          title: 'Current Location'
+        });
+      } else {
+        marker.setPosition(currentLocation);
+      }
+    }, function() {
+      console.error('Error getting location');
+    });
+  } else {
+    console.error('Geolocation not supported by this browser.');
+  }
   function getTextareaRowNumber() {
     path=[];
     var array=[];

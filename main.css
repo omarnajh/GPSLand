@@ -19,6 +19,7 @@ body {
   color: #333;
   line-height: 1.6;
   direction: rtl;
+  cursor: pointer !important;
 }
 
 /* Container */
@@ -133,6 +134,7 @@ body {
   height: 500px;
   width: 100%;
   border-radius: 15px 15px 0 0;
+  cursor: pointer !important;
 }
 
 .map-controls {
@@ -1174,5 +1176,17 @@ textarea {
   .coordinate-system-selector .radio-item {
     justify-content: center;
   }
+}
+
+/* Polygon Editing Cursors */
+.editing-cursor {
+  cursor: pointer !important;
+}
+.grabbing-cursor {
+  cursor: grabbing !important;
+}
+
+body, #map {
+  cursor: pointer !important;
 }
 

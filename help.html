@@ -226,7 +226,7 @@
         <div class="help-content">
           <div class="help-section">
             <h2><i class="fas fa-info-circle"></i> نظرة عامة على التطبيق</h2>
-            <p>تطبيق تحديد الإحداثيات هو أداة متقدمة لرسم الإحداثيات الجغرافية وحساب المساحات. مصمم خصيصاً للاستخدام الزراعي والمساحي مع واجهة عربية سهلة الاستخدام.</p>
+            <p>تطبيق تحديد الإحداثيات هو أداة متقدمة لرسم الإحداثيات الجغرافية وحساب المساحات. مصمم خصيصاً للاستخدام الزراعي والمساحي مع واجهة عربية سهلة الاستخدام ودعم كامل للغة الإنجليزية.</p>
             
             <div class="feature-grid">
               <div class="feature-card">
@@ -245,7 +245,7 @@
                 <ul>
                   <li>رسم عدة مضلعات في نفس الوقت</li>
                   <li>إدارة منفصلة لكل مضلع</li>
-                  <li>ألوان مختلفة لكل منطقة</li>
+                  <li>ألوان مختلفة لكل منطقة (تعيين تلقائي للألوان عند الاستيراد)</li>
                   <li>حسابات منفصلة لكل مضلع</li>
                   <li>تصدير جميع المضلعات معاً</li>
                 </ul>
@@ -270,6 +270,65 @@
                   <li><strong>تصدير KML:</strong> ملف خرائط Google Earth</li>
                   <li><strong>تصدير متعدد:</strong> تصدير جميع المضلعات في ملف واحد</li>
                   <li><strong>تسمية تلقائية:</strong> يتم تسمية الملفات بالتاريخ والوقت</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-file-import"></i> استيراد البيانات</h4>
+                <ul>
+                  <li><strong>استيراد متعدد:</strong> اختيار عدة ملفات JSON في نفس الوقت</li>
+                  <li><strong>ألوان مميزة:</strong> كل مضلع مستورد يحصل على لون مختلف</li>
+                  <li><strong>عرض تلقائي:</strong> عرض التفاصيل والإحداثيات تلقائياً</li>
+                  <li><strong>دعم UTM/LatLng:</strong> استيراد من كلا نظامي الإحداثيات</li>
+                  <li><strong>تحويل تلقائي:</strong> تحويل الإحداثيات للعرض على الخريطة</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-edit"></i> تعديل المضلعات المتقدم</h4>
+                <ul>
+                  <li>المضلعات قابلة للتعديل دائماً (لا حاجة لوضع تحرير خاص)</li>
+                  <li>سحب النقاط الكبيرة لتعديل الشكل بسهولة</li>
+                  <li>دبل كليك على الحافة لإضافة نقطة جديدة</li>
+                  <li>دبل كليك على نقطة لحذفها (إذا كان >3 نقاط)</li>
+                  <li>تحديث فوري للمساحة والمحيط والمسافات عند التعديل</li>
+                  <li>مؤشرات بصرية (مؤشر اليد/السحب عند التعديل)</li>
+                  <li>تلميحات وأدوات مساعدة أثناء التعديل</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-file-import"></i> استيراد وتصدير البيانات</h4>
+                <ul>
+                  <li>استيراد عدة ملفات JSON دفعة واحدة</li>
+                  <li>تعيين لون مميز تلقائياً لكل مضلع مستورد</li>
+                  <li>عرض تفاصيل المضلع الأول تلقائياً بعد الاستيراد</li>
+                  <li>تصدير جميع المضلعات معاً أو بشكل منفصل (JSON, CSV, KML)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-history"></i> التراجع والإعادة</h4>
+                <ul>
+                  <li>تراجع عن آخر 20 إجراء</li>
+                  <li>إعادة الإجراءات الملغاة</li>
+                  <li>حفظ تلقائي في المتصفح واستعادة البيانات عند إعادة التحميل</li>
+                  <li>إدارة كاملة لتاريخ التعديلات</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-users"></i> عداد الزوار</h4>
+                <ul>
+                  <li>عداد زوار يظهر في تذييل الصفحة (محلي لكل جهاز)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-language"></i> دعم اللغات</h4>
+                <ul>
+                  <li>واجهة عربية بالكامل (RTL)</li>
+                  <li>دعم اللغة الإنجليزية مع تبديل فوري</li>
                 </ul>
               </div>
             </div>
@@ -323,6 +382,50 @@
               </div>
               <div class="step-item">
                 <strong>تحديد المضلع:</strong> انقر على المضلع في الخريطة لتحديده
+              </div>
+              <div class="step-item">
+                <strong>تعديل المضلع:</strong> اسحب النقاط المرقمة لتعديل الشكل
+              </div>
+              <div class="step-item">
+                <strong>إضافة نقطة:</strong> دبل كليك على حافة المضلع لإضافة نقطة جديدة
+              </div>
+              <div class="step-item">
+                <strong>حذف نقطة:</strong> دبل كليك على نقطة مرقمة لحذفها
+              </div>
+            </div>
+            
+            <h3><i class="fas fa-file-import"></i> استيراد وتصدير البيانات</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>تصدير البيانات:</strong> انقر على "تصدير البيانات" لتحميل ملف JSON
+              </div>
+              <div class="step-item">
+                <strong>استيراد البيانات:</strong> انقر على "استيراد البيانات" واختر ملفات JSON
+              </div>
+              <div class="step-item">
+                <strong>استيراد متعدد:</strong> يمكن اختيار عدة ملفات في نفس الوقت
+              </div>
+              <div class="step-item">
+                <strong>ألوان مميزة:</strong> كل مضلع مستورد يحصل على لون مختلف تلقائياً
+              </div>
+              <div class="step-item">
+                <strong>عرض التفاصيل:</strong> يتم عرض تفاصيل المضلع الأول تلقائياً
+              </div>
+            </div>
+            
+            <h3><i class="fas fa-undo"></i> التراجع والإعادة</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>التراجع:</strong> انقر على "تراجع" للعودة للخطوة السابقة
+              </div>
+              <div class="step-item">
+                <strong>الإعادة:</strong> انقر على "إعادة" لتطبيق الإجراء الملغي
+              </div>
+              <div class="step-item">
+                <strong>حفظ تلقائي:</strong> يتم حفظ جميع التغييرات تلقائياً
+              </div>
+              <div class="step-item">
+                <strong>استعادة البيانات:</strong> استعادة البيانات المحفوظة عند إعادة فتح التطبيق
               </div>
             </div>
           </div>
@@ -384,6 +487,10 @@
               <li>استخدم * للفصل بين النقاط في نفس السطر</li>
               <li>يمكن إدخال عدة أسطر للنقاط المتعددة</li>
               <li>سيتم تحويل الإحداثيات تلقائياً للعرض على الخريطة</li>
+              <li>يمكن تعديل المضلعات بعد رسمها بسحب النقاط المرقمة</li>
+              <li>دبل كليك على حافة المضلع لإضافة نقطة جديدة</li>
+              <li>دبل كليك على نقطة مرقمة لحذفها (إذا كان المضلع يحتوي على أكثر من 3 نقاط)</li>
+              <li>يتم حفظ جميع التغييرات تلقائياً في المتصفح</li>
             </ul>
           </div>
 
@@ -502,7 +609,7 @@
               <li><strong>UTM Zone:</strong> 38N (WGS84)</li>
               <li><strong>الإسقاط:</strong> EPSG:32638</li>
               <li><strong>نظام Lat/Lon:</strong> WGS84 (EPSG:4326)</li>
-              <li><strong>وحدة المساحة:</strong> الدونم (1000 متر مربع)</li>
+              <li><strong>وحدة المساحة:</strong> الدونم (2500 متر مربع)</li>
               <li><strong>وحدة المسافة:</strong> متر</li>
               <li><strong>التحويل:</strong> proj4.js للتحويل بين الأنظمة</li>
             </ul>
@@ -515,7 +622,7 @@
         <div class="help-content">
           <div class="help-section">
             <h2><i class="fas fa-info-circle"></i> Application Overview</h2>
-            <p>The GPS Coordinate Plotter is an advanced tool for plotting geographic coordinates and calculating areas. Specifically designed for agricultural and surveying use with an easy-to-use Arabic interface.</p>
+            <p>The GPS Coordinate Plotter is an advanced tool for plotting geographic coordinates and calculating land areas. Designed for agricultural and surveying use, with a modern, user-friendly interface supporting both Arabic (RTL) and English.</p>
             
             <div class="feature-grid">
               <div class="feature-card">
@@ -525,40 +632,65 @@
                   <li>Multiple map types (Road, Satellite, Hybrid, Terrain)</li>
                   <li>Real-time coordinate display</li>
                   <li>Automatic coordinate system conversion</li>
-                  <li>Support multiple coordinate systems (UTM and Lat/Lon)</li>
+                  <li>Support for UTM and Lat/Lon systems</li>
                 </ul>
               </div>
               
               <div class="feature-card">
                 <h4><i class="fas fa-layer-group"></i> Multiple Polygon Management</h4>
                 <ul>
-                  <li>Draw multiple polygons at the same time</li>
-                  <li>Separate management for each polygon</li>
-                  <li>Different colors for each area</li>
-                  <li>Separate calculations for each polygon</li>
+                  <li>Draw and manage multiple polygons simultaneously</li>
+                  <li>Each polygon has a distinct color (auto-assigned on import)</li>
+                  <li>Separate calculations and details for each polygon</li>
                   <li>Export all polygons together</li>
                 </ul>
               </div>
               
               <div class="feature-card">
-                <h4><i class="fas fa-calculator"></i> Advanced Calculations</h4>
+                <h4><i class="fas fa-edit"></i> Advanced Polygon Editing</h4>
                 <ul>
-                  <li>Area calculation in dunums</li>
-                  <li>Perimeter measurement in meters</li>
-                  <li>Distance calculation between points</li>
-                  <li>Instant and accurate results</li>
-                  <li>Total areas for all polygons</li>
+                  <li>Polygons are always editable (no special edit mode)</li>
+                  <li>Large draggable markers for easy editing</li>
+                  <li>Double-click edge to add a point</li>
+                  <li>Double-click a point to remove it (if more than 3 points)</li>
+                  <li>Real-time area, perimeter, and distance updates</li>
+                  <li>Visual cues (hand/grab cursor) during editing</li>
+                  <li>Tooltips and editing aids</li>
                 </ul>
               </div>
               
               <div class="feature-card">
-                <h4><i class="fas fa-download"></i> Data Export</h4>
+                <h4><i class="fas fa-file-import"></i> Import & Export</h4>
                 <ul>
-                  <li><strong>JSON Export:</strong> Contains all data in organized format</li>
-                  <li><strong>CSV Export:</strong> Organized spreadsheet file for analysis</li>
-                  <li><strong>KML Export:</strong> Google Earth map file</li>
-                  <li><strong>Multiple Export:</strong> Export all polygons in one file</li>
-                  <li><strong>Auto Naming:</strong> Files are automatically named with date and time</li>
+                  <li>Import multiple JSON files at once</li>
+                  <li>Each imported polygon gets a unique color</li>
+                  <li>First imported polygon's details are shown automatically</li>
+                  <li>Export all polygons together or individually (JSON, CSV, KML)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-history"></i> Undo & Redo</h4>
+                <ul>
+                  <li>Undo up to 20 actions</li>
+                  <li>Redo undone actions</li>
+                  <li>Automatic saving and recovery of data</li>
+                  <li>Full edit history management</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-users"></i> Visitor Counter</h4>
+                <ul>
+                  <li>Visitor counter displayed in the footer (local to each device)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-language"></i> Language Support</h4>
+                <ul>
+                  <li>Full Arabic (RTL) and English support</li>
+                  <li>Instant language toggle</li>
                 </ul>
               </div>
             </div>
@@ -612,6 +744,50 @@
               </div>
               <div class="step-item">
                 <strong>Select Polygon:</strong> Click on the polygon on the map to select it
+              </div>
+              <div class="step-item">
+                <strong>Edit Polygon:</strong> Drag the numbered points to edit the shape
+              </div>
+              <div class="step-item">
+                <strong>Add Point:</strong> Double-click on the edge of the polygon to add a point
+              </div>
+              <div class="step-item">
+                <strong>Delete Point:</strong> Double-click on a numbered point to remove it (if more than 3 points)
+              </div>
+            </div>
+            
+            <h3><i class="fas fa-file-import"></i> Import and Export Data</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>Export Data:</strong> Click "Export Data" to download JSON file
+              </div>
+              <div class="step-item">
+                <strong>Import Data:</strong> Click "Import Data" and select JSON files
+              </div>
+              <div class="step-item">
+                <strong>Multiple Import:</strong> Multiple files can be selected at once
+              </div>
+              <div class="step-item">
+                <strong>Distinct Colors:</strong> Each imported polygon gets a distinct color automatically
+              </div>
+              <div class="step-item">
+                <strong>Show Details:</strong> First polygon details are displayed automatically
+              </div>
+            </div>
+            
+            <h3><i class="fas fa-undo"></i> Undo and Redo</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>Undo:</strong> Click "Undo" to return to the previous step
+              </div>
+              <div class="step-item">
+                <strong>Redo:</strong> Click "Redo" to apply the undone action
+              </div>
+              <div class="step-item">
+                <strong>Auto Save:</strong> All changes are saved automatically
+              </div>
+              <div class="step-item">
+                <strong>Data Recovery:</strong> Data saved can be recovered when the application is reopened
               </div>
             </div>
           </div>
@@ -673,6 +849,10 @@
               <li>Use * to separate points on the same line</li>
               <li>Multiple lines can be entered for multiple points</li>
               <li>Coordinates will be automatically converted for map display</li>
+              <li>Polygons can be edited after drawing by dragging numbered points</li>
+              <li>Double-click on a numbered point to add a new point</li>
+              <li>Double-click on a numbered point to remove it (if more than 3 points)</li>
+              <li>All changes are saved automatically in the browser</li>
             </ul>
           </div>
 
@@ -791,7 +971,7 @@
               <li><strong>UTM Zone:</strong> 38N (WGS84)</li>
               <li><strong>Projection:</strong> EPSG:32638</li>
               <li><strong>Lat/Lon System:</strong> WGS84 (EPSG:4326)</li>
-              <li><strong>Area Unit:</strong> Dunum (1000 square meters)</li>
+              <li><strong>Area Unit:</strong> Dunum (2500 square meters)</li>
               <li><strong>Distance Unit:</strong> Meters</li>
               <li><strong>Conversion:</strong> proj4.js for coordinate system conversion</li>
             </ul>

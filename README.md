@@ -11,40 +11,54 @@ A modern, secure, and feature-rich web application for plotting GPS coordinates 
 - **Line Drawing**: Right-click to draw lines and measure distances
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
 
-### 📍 **Advanced Coordinate Management**
-- **Flexible Input Format**: Accepts UTM coordinates in various formats
-- **Input Validation**: Comprehensive validation with error messages
-- **Batch Processing**: Handle multiple coordinate points at once
-- **Sample Data**: Built-in sample coordinates for testing
-- **Coordinate Sanitization**: XSS protection and input cleaning
+### 🟦 **Advanced Polygon Editing**
+- **Always-editable polygons**: No special edit mode needed; polygons are always editable
+- **Large draggable markers**: Easily drag points to reshape polygons
+- **Double-click to add/remove points**: Double-click edge to add, double-click a point to remove (if >3 points)
+- **Real-time updates**: Area, perimeter, and distances update instantly as you edit
+- **Visual cues**: Hand/grab cursor and tooltips during editing
+- **Undo/Redo**: Full history management for all actions
 
-### 🎨 **Visual Customization**
+### 🟩 **Multiple Polygon Management**
+- **Draw and manage multiple polygons simultaneously**
+- **Distinct colors for each polygon**: Auto-assigned on import for easy distinction
+- **Separate calculations and details for each polygon**
+- **Export all polygons together or individually (JSON, CSV, KML)**
+- **Import multiple polygons at once**: Import several JSON files, each gets a unique color
+- **First imported polygon's details shown automatically**
+
+### 🧑‍🌾 **Farmer Name & Center Marker**
+- **Draggable center marker**: Move the entire polygon by dragging the farmer/owner marker
+- **Farmer/owner name label**: Displayed on the map for each polygon
+
+### 🖌️ **Visual Customization**
 - **Custom Colors**: Choose any color for polygon and markers
 - **Opacity Control**: Adjust polygon fill transparency
-- **Farmer Name Labels**: Display owner/farmer names on the map
-- **Numbered Markers**: Clear point identification with numbered markers
-- **Safe Info Windows**: XSS-protected coordinate information display
+- **Modern UI**: Card-based layout, smooth animations, and responsive design
 
-### 📊 **Advanced Calculations**
-- **Area Calculation**: Automatic area computation in dunums (2500 m²)
+### 📈 **Advanced Calculations**
+- **Area Calculation**: Automatic area computation in dunums (1 dunum = 2500 m²)
 - **Perimeter Measurement**: Total boundary length calculation
 - **Distance Between Points**: Individual segment measurements
-- **Real-time Updates**: Instant calculation updates
 - **Validation**: Coordinate range validation and error handling
 
 ### 💾 **Enhanced Data Management**
 - **Multiple Export Formats**: JSON, CSV, and KML export
 - **Data Persistence**: Automatic localStorage saving and restoration
-- **Undo/Redo**: Full history management with undo/redo functionality
-- **Print Support**: Print maps and calculations
+- **Print Support**: Print maps and calculations (A4 format)
 - **Auto-save**: Automatic data saving with history management
 
-### 🎯 **User Experience**
-- **Arabic Interface**: Full RTL support with Arabic text
+### 🌐 **Language Support**
+- **Full Arabic (RTL) and English support**
+- **Instant language toggle**
+
+### 👥 **Visitor Counter**
+- **Visitor counter displayed in the footer (local to each device)**
+
+### 🧑‍💻 **User Experience**
 - **Toast Notifications**: Real-time feedback and status updates
 - **Loading Indicators**: Visual feedback during processing
 - **Error Handling**: Comprehensive error messages and validation
-- **Responsive Layout**: Optimized for all screen sizes
 - **Keyboard Shortcuts**: Enhanced accessibility
 
 ## 🚀 Quick Start

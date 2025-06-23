@@ -13,8 +13,8 @@
   <!-- Header -->
   <header class="header">
     <div class="container">
-      <h1><i class="fas fa-map-marked-alt"></i> تطبيق تحديد الإحداثيات</h1>
-      <p>GPS Coordinate Plotter & Area Calculator</p>
+      <h1><i class="fas fa-map-marked-alt"></i> <span class="lang-ar">تطبيق تحديد الإحداثيات</span><span class="lang-en" style="display:none;">GPS Coordinate Plotter</span></h1>
+      <p><span class="lang-ar">برنامج حساب المساحات الزراعية</span><span class="lang-en" style="display:none;">Area Calculator</span></p>
       <div id="locationDisplay" class="location-display" style="display: none;">
         <i class="fas fa-map-pin"></i>
         <span id="cityName">...</span>
@@ -22,8 +22,13 @@
       <div class="header-actions">
         <a href="help.html" class="help-btn" title="صفحة المساعدة - Help Page">
           <i class="fas fa-question-circle"></i>
-          المساعدة
+          <span class="lang-ar">المساعدة</span>
+          <span class="lang-en" style="display:none;">Help</span>
         </a>
+        <div class="language-toggle">
+          <button class="language-btn active" id="langArBtn" type="button">العربية</button>
+          <button class="language-btn" id="langEnBtn" type="button">English</button>
+        </div>
       </div>
     </div>
   </header>
@@ -37,37 +42,37 @@
           <div id="map"></div>
           <div class="map-controls">
             <div class="map-type-selector">
-              <h4><i class="fas fa-layer-group"></i> نوع الخريطة</h4>
+              <h4><i class="fas fa-layer-group"></i> <span class="lang-ar">نوع الخريطة</span><span class="lang-en" style="display:none;">Map Type</span></h4>
               <div class="radio-group">
                 <label class="radio-item">
                   <input type="radio" name="mapType" value="roadmap" checked>
                   <span class="radio-custom"></span>
-                  <i class="fas fa-road"></i> طرق
+                  <i class="fas fa-road"></i> <span class="lang-ar">طرق</span><span class="lang-en" style="display:none;">Road</span>
                 </label>
                 <label class="radio-item">
                   <input type="radio" name="mapType" value="satellite">
                   <span class="radio-custom"></span>
-                  <i class="fas fa-satellite"></i> أقمار صناعية
+                  <i class="fas fa-satellite"></i> <span class="lang-ar">أقمار صناعية</span><span class="lang-en" style="display:none;">Satellite</span>
                 </label>
                 <label class="radio-item">
                   <input type="radio" name="mapType" value="hybrid">
                   <span class="radio-custom"></span>
-                  <i class="fas fa-map"></i> هجين
+                  <i class="fas fa-map"></i> <span class="lang-ar">هجين</span><span class="lang-en" style="display:none;">Hybrid</span>
                 </label>
                 <label class="radio-item">
                   <input type="radio" name="mapType" value="terrain">
                   <span class="radio-custom"></span>
-                  <i class="fas fa-mountain"></i> تضاريس
+                  <i class="fas fa-mountain"></i> <span class="lang-ar">تضاريس</span><span class="lang-en" style="display:none;">Terrain</span>
                 </label>
               </div>
             </div>
             <div class="coordinate-display">
-              <h4><i class="fas fa-crosshairs"></i> الإحداثيات الحالية</h4>
+              <h4><i class="fas fa-crosshairs"></i> <span class="lang-ar">الإحداثيات الحالية</span><span class="lang-en" style="display:none;">Current Coordinates</span></h4>
               <div id="currentCoordinates" class="coordinate-box">
-                <span>انقر على الخريطة لعرض الإحداثيات</span>
+                <span class="lang-ar">انقر على الخريطة لعرض الإحداثيات</span><span class="lang-en" style="display:none;">Click on the map to show coordinates</span>
               </div>
               <div class="coordinate-instructions">
-                <p><i class="fas fa-info-circle"></i> <strong>رسم الخط:</strong> انقر بالزر الأيمن لبدء رسم خط، ثم انقر مرة أخرى لإنهاء الخط وعرض المسافة</p>
+                <p><i class="fas fa-info-circle"></i> <strong><span class="lang-ar">رسم الخط:</span><span class="lang-en" style="display:none;">Draw Line:</span></strong> <span class="lang-ar">انقر بالزر الأيمن لبدء رسم خط، ثم انقر مرة أخرى لإنهاء الخط وعرض المسافة</span><span class="lang-en" style="display:none;">Right-click to start drawing a line, then right-click again to finish and show the distance</span></p>
               </div>
             </div>
           </div>
@@ -79,31 +84,31 @@
         <div class="input-grid">
           <!-- Coordinate Input -->
           <div class="input-card">
-            <h3><i class="fas fa-edit"></i> إدخال الإحداثيات</h3>
+            <h3><i class="fas fa-edit"></i> <span class="lang-ar">إدخال الإحداثيات</span><span class="lang-en" style="display:none;">Enter Coordinates</span></h3>
             
             <!-- Coordinate System Selector -->
             <div class="coordinate-system-selector">
-              <h4><i class="fas fa-globe"></i> نظام الإحداثيات</h4>
+              <h4><i class="fas fa-globe"></i> <span class="lang-ar">نظام الإحداثيات</span><span class="lang-en" style="display:none;">Coordinate System</span></h4>
               <div class="radio-group">
                 <label class="radio-item">
                   <input type="radio" name="coordinateSystem" value="utm" checked>
                   <span class="radio-custom"></span>
-                  <i class="fas fa-grid-3"></i> UTM
+                  <i class="fas fa-grid-3"></i> <span class="lang-ar">UTM</span><span class="lang-en" style="display:none;">UTM</span>
                 </label>
                 <label class="radio-item">
                   <input type="radio" name="coordinateSystem" value="latlon">
                   <span class="radio-custom"></span>
-                  <i class="fas fa-map-marker-alt"></i> Lat/Lon
+                  <i class="fas fa-map-marker-alt"></i> <span class="lang-ar">Lat/Lon</span><span class="lang-en" style="display:none;">Lat/Lon</span>
                 </label>
               </div>
             </div>
             
             <div class="input-help">
-              <p><strong>تنسيق الإحداثيات:</strong></p>
+              <p><strong><span class="lang-ar">تنسيق الإحداثيات:</span><span class="lang-en" style="display:none;">Coordinate Format:</span></strong></p>
               <ul id="coordinateFormatHelp">
-                <li>UTM: <code>Easting,Northing</code></li>
-                <li>مثال: <code>123456.78,9876543.21</code></li>
-                <li>يمكن إدخال عدة نقاط مفصولة بـ <code>*</code></li>
+                <li><span class="lang-ar">UTM:</span><span class="lang-en" style="display:none;">UTM:</span> <code>Easting,Northing</code></li>
+                <li><span class="lang-ar">مثال:</span><span class="lang-en" style="display:none;">Example:</span> <code>123456.78,9876543.21</code></li>
+                <li><span class="lang-ar">يمكن إدخال عدة نقاط مفصولة بـ <code>*</code></span><span class="lang-en" style="display:none;">You can enter multiple points separated by <code>*</code></span></li>
               </ul>
             </div>
             <textarea 
@@ -116,38 +121,38 @@
             ></textarea>
             <div class="input-actions">
               <button id="clearInput" class="btn btn-secondary">
-                <i class="fas fa-eraser"></i> مسح
+                <i class="fas fa-eraser"></i> <span class="lang-ar">مسح</span><span class="lang-en" style="display:none;">Clear</span>
               </button>
               <button id="loadSample" class="btn btn-secondary">
-                <i class="fas fa-download"></i> تحميل مثال
+                <i class="fas fa-download"></i> <span class="lang-ar">تحميل مثال</span><span class="lang-en" style="display:none;">Load Sample</span>
               </button>
             </div>
           </div>
 
           <!-- Drawing Options -->
           <div class="input-card">
-            <h3><i class="fas fa-palette"></i> خيارات الرسم</h3>
+            <h3><i class="fas fa-palette"></i> <span class="lang-ar">خيارات الرسم</span><span class="lang-en" style="display:none;">Drawing Options</span></h3>
             <div class="form-group">
               <label for="farmerName">
-                <i class="fas fa-user"></i> اسم المالك/الفلاح
+                <i class="fas fa-user"></i> <span class="lang-ar">اسم المالك/الفلاح</span><span class="lang-en" style="display:none;">Farmer/Owner Name</span>
               </label>
               <input type="text" id="farmerName" placeholder="أدخل الاسم هنا">
             </div>
             <div class="form-group">
               <label for="polygonColor">
-                <i class="fas fa-fill-drip"></i> لون الرسم
+                <i class="fas fa-fill-drip"></i> <span class="lang-ar">لون الرسم</span><span class="lang-en" style="display:none;">Polygon Color</span>
               </label>
               <input type="color" id="polygonColor" value="#ff0000">
             </div>
             <div class="form-group">
               <label for="polygonOpacity">
-                <i class="fas fa-eye"></i> شفافية التعبئة
+                <i class="fas fa-eye"></i> <span class="lang-ar">شفافية التعبئة</span><span class="lang-en" style="display:none;">Fill Opacity</span>
               </label>
               <input type="range" id="polygonOpacity" min="0.1" max="1" step="0.1" value="0.35">
               <span id="opacityValue">35%</span>
             </div>
             <button id="drawPolygon" class="btn btn-primary">
-              <i class="fas fa-draw-polygon"></i> رسم المضلع
+              <i class="fas fa-draw-polygon"></i> <span class="lang-ar">رسم المضلع</span><span class="lang-en" style="display:none;">Draw Polygon</span>
             </button>
           </div>
         </div>
@@ -157,25 +162,25 @@
       <section class="results-section" id="resultsSection" style="display: none;">
         <div class="results-grid">
           <div class="results-card">
-            <h3><i class="fas fa-calculator"></i> الحسابات</h3>
+            <h3><i class="fas fa-calculator"></i> <span class="lang-ar">الحسابات</span><span class="lang-en" style="display:none;">Calculations</span></h3>
             <div class="calculation-results">
               <div class="result-item">
-                <span class="result-label">المساحة الكلية:</span>
+                <span class="result-label"><span class="lang-ar">المساحة الكلية:</span><span class="lang-en" style="display:none;">Total Area:</span></span>
                 <span id="totalArea" class="result-value">-</span>
               </div>
               <div class="result-item">
-                <span class="result-label">عدد النقاط:</span>
+                <span class="result-label"><span class="lang-ar">عدد النقاط:</span><span class="lang-en" style="display:none;">Point Count:</span></span>
                 <span id="pointCount" class="result-value">-</span>
               </div>
               <div class="result-item">
-                <span class="result-label">المحيط:</span>
+                <span class="result-label"><span class="lang-ar">المحيط:</span><span class="lang-en" style="display:none;">Perimeter:</span></span>
                 <span id="perimeter" class="result-value">-</span>
               </div>
             </div>
           </div>
 
           <div class="results-card">
-            <h3><i class="fas fa-ruler"></i> المسافات بين النقاط</h3>
+            <h3><i class="fas fa-ruler"></i> <span class="lang-ar">المسافات بين النقاط</span><span class="lang-en" style="display:none;">Distances Between Points</span></h3>
             <div id="distanceResults" class="distance-list">
               <!-- Distance results will be populated here -->
             </div>
@@ -186,7 +191,7 @@
       <!-- Coordinates Section (for printing) -->
       <section class="coordinates-section" id="coordinatesSection" style="display: none;">
         <div class="coordinates-card">
-          <h3><i class="fas fa-map-marker-alt"></i> قائمة الإحداثيات (GPS)</h3>
+          <h3><i class="fas fa-map-marker-alt"></i> <span class="lang-ar">قائمة الإحداثيات (GPS)</span><span class="lang-en" style="display:none;">Coordinate List (GPS)</span></h3>
           <div id="coordinateList" class="coordinate-list">
             <!-- Coordinates will be populated here -->
           </div>
@@ -196,26 +201,39 @@
       <!-- Export Section -->
       <section class="export-section">
         <div class="export-card">
-          <h3><i class="fas fa-share-alt"></i> تصدير البيانات</h3>
+          <h3><i class="fas fa-share-alt"></i> <span class="lang-ar">تصدير البيانات</span><span class="lang-en" style="display:none;">Export Data</span></h3>
           <div class="export-buttons">
             <button id="exportData" class="btn btn-success">
-              <i class="fas fa-file-export"></i> تصدير البيانات
+              <i class="fas fa-file-export"></i> <span class="lang-ar">تصدير البيانات</span><span class="lang-en" style="display:none;">Export Data</span>
             </button>
+            <button id="importData" class="btn btn-primary">
+              <i class="fas fa-file-import"></i> <span class="lang-ar">استيراد البيانات</span><span class="lang-en" style="display:none;">Import Data</span>
+            </button>
+            <input type="file" id="importFileInput" accept="application/json" style="display:none;" multiple />
             <button id="printMap" class="btn btn-info">
-              <i class="fas fa-print"></i> طباعة الخريطة
+              <i class="fas fa-print"></i> <span class="lang-ar">طباعة الخريطة</span><span class="lang-en" style="display:none;">Print Map</span>
             </button>
             <button id="undoAction" class="btn btn-secondary">
-              <i class="fas fa-undo"></i> تراجع
+              <i class="fas fa-undo"></i> <span class="lang-ar">تراجع</span><span class="lang-en" style="display:none;">Undo</span>
             </button>
             <button id="redoAction" class="btn btn-secondary">
-              <i class="fas fa-redo"></i> إعادة
+              <i class="fas fa-redo"></i> <span class="lang-ar">إعادة</span><span class="lang-en" style="display:none;">Redo</span>
             </button>
             <button id="clearLine" class="btn btn-warning">
-              <i class="fas fa-minus"></i> مسح الخط
+              <i class="fas fa-minus"></i> <span class="lang-ar">مسح الخط</span><span class="lang-en" style="display:none;">Clear Line</span>
             </button>
             <button id="clearMap" class="btn btn-danger">
-              <i class="fas fa-trash"></i> مسح الخريطة
+              <i class="fas fa-trash"></i> <span class="lang-ar">مسح الخريطة</span><span class="lang-en" style="display:none;">Clear Map</span>
             </button>
+            <button id="editPolygon" class="btn btn-primary" style="display:none;">
+              <i class="fas fa-edit"></i> <span class="lang-ar">تعديل المضلع</span><span class="lang-en" style="display:none;">Edit Polygon</span>
+            </button>
+            <button id="doneEditPolygon" class="btn btn-success" style="display:none;">
+              <i class="fas fa-check"></i> <span class="lang-ar">تم</span><span class="lang-en" style="display:none;">Done</span>
+            </button>
+          </div>
+          <div id="editInstructions" style="display:none; margin-top:10px; color:#007bff; font-weight:bold;">
+            <span class="lang-ar">اسحب النقاط لتعديل المضلع. عند الانتهاء اضغط "تم".</span><span class="lang-en" style="display:none;">Drag points to edit the polygon. When finished, click "Done".</span>
           </div>
         </div>
       </section>
@@ -226,7 +244,7 @@
   <div id="loadingOverlay" class="loading-overlay" style="display: none;">
     <div class="loading-spinner">
       <i class="fas fa-spinner fa-spin"></i>
-      <p>جاري المعالجة...</p>
+      <p><span class="lang-ar">جاري المعالجة...</span><span class="lang-en" style="display:none;">Processing...</span></p>
     </div>
   </div>
 
@@ -246,6 +264,10 @@
           <i class="fas fa-code"></i>
           Programmer: Omar Najh | Email: omarnajh@gmail.com
         </p>
+        <p class="visitor-counter">
+          <i class="fas fa-users"></i>
+          عدد الزوار: <span id="visitorCount">...</span>
+        </p>
       </div>
     </div>
   </footer>
@@ -254,5 +276,27 @@
   <script src="config.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?&libraries=geometry"></script>
   <script src="maincode.js"></script>
+  <script>
+    // Language switcher for main app
+    function setLanguage(lang) {
+      var isAr = lang === 'ar';
+      document.documentElement.lang = isAr ? 'ar' : 'en';
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+      document.querySelectorAll('.lang-ar').forEach(e => e.style.display = isAr ? '' : 'none');
+      document.querySelectorAll('.lang-en').forEach(e => e.style.display = isAr ? 'none' : '');
+      var arBtn = document.getElementById('langArBtn');
+      var enBtn = document.getElementById('langEnBtn');
+      if (arBtn && enBtn) {
+        arBtn.classList.toggle('active', isAr);
+        enBtn.classList.toggle('active', !isAr);
+      }
+      if (window.setAppLanguage) window.setAppLanguage(lang);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('langArBtn').onclick = function() { setLanguage('ar'); };
+      document.getElementById('langEnBtn').onclick = function() { setLanguage('en'); };
+      setLanguage('ar'); // Default to Arabic
+    });
+  </script>
 </body>
 </html>

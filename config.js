@@ -7,7 +7,8 @@ window.APP_CONFIG = {
     
     // Coordinate System Configuration
     UTM_ZONE: 38, // UTM Zone for Iraq/Middle East
-    DUNUM_CONVERSION: 2500, // Square meters per dunum (regional standard)
+    // Dunum Conversion: 1 dunum = 2500 m² (Iraqi/Jordanian standard)
+    DUNUM_CONVERSION: 2500, // مساحة الدونم = 2500 متر مربع (المعيار العراقي/الأردني)
     
     // Map Configuration
     DEFAULT_ZOOM: 18,

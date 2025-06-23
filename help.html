@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحة المساعدة - Help Page | GPS Coordinate Plotter</title>
+  <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .help-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .language-toggle {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .language-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      margin: 0 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .language-btn:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
+    .language-btn.active {
+      background: #2c3e50;
+    }
+    
+    .help-content {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .help-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    
+    .help-section:last-child {
+      border-bottom: none;
+    }
+    
+    .help-section h2 {
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .help-section h3 {
+      color: #34495e;
+      font-size: 1.2rem;
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .help-section p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    
+    .help-section ul {
+      margin: 1rem 0;
+      padding-right: 1.5rem;
+    }
+    
+    .help-section li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #495057;
+      direction: ltr;
+      text-align: left;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .feature-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-left: 4px solid #3498db;
+    }
+    
+    .feature-card h4 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .step-list {
+      counter-reset: step-counter;
+    }
+    
+    .step-item {
+      counter-increment: step-counter;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-right: 4px solid #3498db;
+    }
+    
+    .step-item::before {
+      content: counter(step-counter);
+      background: #3498db;
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-left: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+    
+    .back-btn:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
+    .content-arabic {
+      display: block;
+    }
+    
+    .content-english {
+      display: none;
+    }
+    
+    .content-english.show {
+      display: block;
+    }
+    
+    .content-arabic.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1><i class="fas fa-question-circle"></i> صفحة المساعدة - Help Page</h1>
+      <p>GPS Coordinate Plotter - دليل الاستخدام الشامل</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="help-container">
+      <!-- Back Button -->
+      <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i>
+        العودة للتطبيق - Back to Application
+      </a>
+
+      <!-- Language Toggle -->
+      <div class="language-toggle">
+        <button class="language-btn active" onclick="switchLanguage('arabic')">
+          <i class="fas fa-language"></i> العربية
+        </button>
+        <button class="language-btn" onclick="switchLanguage('english')">
+          <i class="fas fa-language"></i> English
+        </button>
+      </div>
+
+      <!-- Arabic Content -->
+      <div class="content-arabic">
+        <div class="help-content">
+          <div class="help-section">
+            <h2><i class="fas fa-info-circle"></i> نظرة عامة على التطبيق</h2>
+            <p>تطبيق تحديد الإحداثيات هو أداة متقدمة لرسم الإحداثيات الجغرافية وحساب المساحات. مصمم خصيصاً للاستخدام الزراعي والمساحي مع واجهة عربية سهلة الاستخدام.</p>
+            
+            <div class="feature-grid">
+              <div class="feature-card">
+                <h4><i class="fas fa-map-marked-alt"></i> رسم الخرائط التفاعلية</h4>
+                <ul>
+                  <li>خرائط Google عالية الدقة</li>
+                  <li>أنواع خرائط متعددة (طرق، أقمار صناعية، هجين، تضاريس)</li>
+                  <li>عرض الإحداثيات في الوقت الفعلي</li>
+                  <li>تحويل تلقائي بين أنظمة الإحداثيات</li>
+                  <li>دعم أنظمة إحداثيات متعددة (UTM و Lat/Lon)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-layer-group"></i> إدارة المضلعات المتعددة</h4>
+                <ul>
+                  <li>رسم عدة مضلعات في نفس الوقت</li>
+                  <li>إدارة منفصلة لكل مضلع</li>
+                  <li>ألوان مختلفة لكل منطقة</li>
+                  <li>حسابات منفصلة لكل مضلع</li>
+                  <li>تصدير جميع المضلعات معاً</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-calculator"></i> حسابات متقدمة</h4>
+                <ul>
+                  <li>حساب المساحة بالدونم</li>
+                  <li>قياس المحيط بالأمتار</li>
+                  <li>حساب المسافات بين النقاط</li>
+                  <li>نتائج فورية ودقيقة</li>
+                  <li>إجمالي المساحات لجميع المضلعات</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-download"></i> تصدير البيانات</h4>
+                <ul>
+                  <li><strong>تصدير JSON:</strong> يحتوي على جميع البيانات بتنسيق منظم</li>
+                  <li><strong>تصدير CSV:</strong> ملف جدول بيانات منظم للتحليل</li>
+                  <li><strong>تصدير KML:</strong> ملف خرائط Google Earth</li>
+                  <li><strong>تصدير متعدد:</strong> تصدير جميع المضلعات في ملف واحد</li>
+                  <li><strong>تسمية تلقائية:</strong> يتم تسمية الملفات بالتاريخ والوقت</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-mouse"></i> كيفية استخدام التطبيق</h2>
+            
+            <h3><i class="fas fa-edit"></i> إدخال الإحداثيات</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>الخطوة الأولى:</strong> اختر نظام الإحداثيات (UTM أو Lat/Lon)
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الثانية:</strong> انتقل إلى قسم "إدخال الإحداثيات"
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الثالثة:</strong> أدخل الإحداثيات بالتنسيق المطلوب
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الرابعة:</strong> اضبط خيارات الرسم (اللون، الشفافية، اسم المالك)
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الخامسة:</strong> اضغط "رسم المضلع" لعرض النتائج
+              </div>
+              <div class="step-item">
+                <strong>الخطوة السادسة:</strong> كرر العملية لإضافة مضلعات أخرى
+              </div>
+            </div>
+
+            <h3><i class="fas fa-draw-polygon"></i> رسم الخطوط</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>الخطوة الأولى:</strong> انقر بالزر الأيمن للماوس في نقطة البداية
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الثانية:</strong> انقر بالزر الأيمن مرة أخرى في نقطة النهاية
+              </div>
+              <div class="step-item">
+                <strong>الخطوة الثالثة:</strong> ستظهر المسافة على الخط تلقائياً
+              </div>
+            </div>
+
+            <h3><i class="fas fa-layer-group"></i> إدارة المضلعات</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>عرض المضلع:</strong> انقر على "عرض" في قائمة المضلعات
+              </div>
+              <div class="step-item">
+                <strong>حذف المضلع:</strong> انقر على "حذف" لإزالة مضلع معين
+              </div>
+              <div class="step-item">
+                <strong>تحديد المضلع:</strong> انقر على المضلع في الخريطة لتحديده
+              </div>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-code"></i> تنسيق الإحداثيات</h2>
+            
+            <h3><i class="fas fa-globe"></i> أنظمة الإحداثيات المدعومة</h3>
+            <p>يدعم التطبيق نظامين للإحداثيات:</p>
+            
+            <div class="feature-grid">
+              <div class="feature-card">
+                <h4><i class="fas fa-grid-3"></i> نظام UTM</h4>
+                <ul>
+                  <li>تنسيق: <code>Easting,Northing</code></li>
+                  <li>مثال: <code>123456.78,9876543.21</code></li>
+                  <li>منطقة UTM: 38N</li>
+                  <li>مناسب للمسح الزراعي</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-map-marker-alt"></i> نظام Lat/Lon</h4>
+                <ul>
+                  <li>تنسيق: <code>Latitude,Longitude</code></li>
+                  <li>مثال: <code>31.9539,35.9106</code></li>
+                  <li>نظام WGS84</li>
+                  <li>مناسب للاستخدام العام</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3><i class="fas fa-list"></i> التنسيقات المدعومة</h3>
+            <p>يقبل التطبيق الإحداثيات بالتنسيقات التالية:</p>
+            
+            <div class="code-block">
+              # تنسيق نقطة واحدة
+              Easting,Northing (UTM)
+              123456.78,9876543.21
+              
+              Latitude,Longitude (Lat/Lon)
+              31.9539,35.9106
+              
+              # تنسيق نقاط متعددة (سطر واحد لكل نقطة)
+              123456.78,9876543.21
+              234567.89,9876544.32
+              345678.90,9876545.43
+              
+              # تنسيق نقاط متعددة مع فاصل *
+              123456.78,9876543.21*234567.89,9876544.32
+              345678.90,9876545.43*456789.01,9876546.54
+            </div>
+
+            <h3><i class="fas fa-exclamation-triangle"></i> ملاحظات مهمة</h3>
+            <ul>
+              <li>اختر نظام الإحداثيات المناسب قبل إدخال البيانات</li>
+              <li>الحد الأدنى للنقاط هو 3 نقاط لرسم المضلع</li>
+              <li>استخدم الفاصلة (,) للفصل بين الإحداثيات</li>
+              <li>استخدم * للفصل بين النقاط في نفس السطر</li>
+              <li>يمكن إدخال عدة أسطر للنقاط المتعددة</li>
+              <li>سيتم تحويل الإحداثيات تلقائياً للعرض على الخريطة</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-cog"></i> خيارات التخصيص</h2>
+            
+            <h3><i class="fas fa-palette"></i> تخصيص المظهر</h3>
+            <ul>
+              <li><strong>لون المضلع:</strong> اختر أي لون من لوحة الألوان</li>
+              <li><strong>الشفافية:</strong> اضبط مستوى الشفافية من 10% إلى 100%</li>
+              <li><strong>اسم المالك:</strong> أدخل اسم الفلاح أو المالك للعرض على الخريطة</li>
+              <li><strong>نوع الخريطة:</strong> اختر بين الطرق، الأقمار الصناعية، الهجين، أو التضاريس</li>
+            </ul>
+
+            <h3><i class="fas fa-map"></i> التحكم في الخريطة</h3>
+            <ul>
+              <li><strong>التكبير والتصغير:</strong> استخدم عجلة الماوس أو أزرار + و -</li>
+              <li><strong>التحريك:</strong> اسحب الخريطة بالماوس للتنقل</li>
+              <li><strong>عرض الإحداثيات:</strong> انقر بالزر الأيمن في أي مكان على الخريطة</li>
+              <li><strong>تغيير نوع الخريطة:</strong> استخدم أزرار الراديو في قسم التحكم</li>
+            </ul>
+
+            <h3><i class="fas fa-history"></i> التراجع والإعادة</h3>
+            <ul>
+              <li><strong>التراجع:</strong> استخدم زر "تراجع" لإلغاء الإجراء الأخير</li>
+              <li><strong>الإعادة:</strong> استخدم زر "إعادة" لتنفيذ الإجراء الملغي</li>
+              <li><strong>حفظ تلقائي:</strong> يتم حفظ البيانات تلقائياً في المتصفح</li>
+              <li><strong>استعادة البيانات:</strong> يتم استعادة البيانات المحفوظة عند إعادة فتح التطبيق</li>
+            </ul>
+
+            <h3><i class="fas fa-globe"></i> اختيار نظام الإحداثيات</h3>
+            <ul>
+              <li><strong>نظام UTM:</strong> مناسب للمسح الزراعي والهندسي</li>
+              <li><strong>نظام Lat/Lon:</strong> مناسب للاستخدام العام والخرائط</li>
+              <li><strong>تحويل تلقائي:</strong> يتم تحويل الإحداثيات تلقائياً للعرض</li>
+              <li><strong>عرض مزدوج:</strong> عرض الإحداثيات في كلا النظامين</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-file-export"></i> تصدير وطباعة البيانات</h2>
+            
+            <h3><i class="fas fa-download"></i> تصدير البيانات</h3>
+            <ul>
+              <li><strong>تصدير JSON:</strong> يحتوي على جميع البيانات بتنسيق منظم</li>
+              <li><strong>تصدير CSV:</strong> ملف جدول بيانات منظم للتحليل</li>
+              <li><strong>تصدير KML:</strong> ملف خرائط Google Earth</li>
+              <li><strong>تصدير متعدد:</strong> تصدير جميع المضلعات في ملف واحد</li>
+              <li><strong>تسمية تلقائية:</strong> يتم تسمية الملفات بالتاريخ والوقت</li>
+            </ul>
+
+            <h3><i class="fas fa-print"></i> طباعة الخريطة</h3>
+            <ul>
+              <li>اضغط "طباعة الخريطة" لفتح نافذة الطباعة</li>
+              <li>سيتم إخفاء عناصر التحكم وعرض الخريطة والنتائج فقط</li>
+              <li>يمكن طباعة الخريطة والبيانات معاً</li>
+              <li>يدعم الطباعة بتنسيق A4</li>
+              <li>طباعة جميع المضلعات المرسومة</li>
+            </ul>
+
+            <h3><i class="fas fa-layer-group"></i> إدارة المضلعات</h3>
+            <ul>
+              <li><strong>قائمة المضلعات:</strong> عرض جميع المضلعات المرسومة</li>
+              <li><strong>إجمالي المساحة:</strong> حساب مجموع مساحات جميع المضلعات</li>
+              <li><strong>حذف مضلع:</strong> إزالة مضلع معين من الخريطة</li>
+              <li><strong>تحديد مضلع:</strong> عرض تفاصيل مضلع معين</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-exclamation-circle"></i> استكشاف الأخطاء</h2>
+            
+            <h3><i class="fas fa-times-circle"></i> مشاكل شائعة وحلولها</h3>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-map"></i> الخريطة لا تتحمل</h4>
+              <ul>
+                <li>تحقق من اتصال الإنترنت</li>
+                <li>تأكد من أن Google Maps API يعمل</li>
+                <li>امسح ذاكرة التخزين المؤقت للمتصفح</li>
+              </ul>
+            </div>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-coordinates"></i> الإحداثيات لا تظهر</h4>
+              <ul>
+                <li>تحقق من تنسيق الإحداثيات</li>
+                <li>تأكد من وجود 3 نقاط على الأقل</li>
+                <li>تحقق من أن الإحداثيات في النطاق الصحيح</li>
+              </ul>
+            </div>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-download"></i> التصدير لا يعمل</h4>
+              <ul>
+                <li>تأكد من رسم المضلع أولاً</li>
+                <li>تحقق من إعدادات التحميل في المتصفح</li>
+                <li>تأكد من صلاحيات الملفات</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-info"></i> معلومات تقنية</h2>
+            
+            <h3><i class="fas fa-server"></i> المتطلبات التقنية</h3>
+            <ul>
+              <li><strong>المتصفح:</strong> Chrome 60+, Firefox 55+, Safari 12+, Edge 79+</li>
+              <li><strong>الاتصال:</strong> إنترنت مطلوب لخرائط Google</li>
+              <li><strong>الذاكرة:</strong> 4GB RAM على الأقل</li>
+              <li><strong>الشاشة:</strong> دقة 1024x768 على الأقل</li>
+            </ul>
+
+            <h3><i class="fas fa-cogs"></i> نظام الإحداثيات</h3>
+            <ul>
+              <li><strong>UTM Zone:</strong> 38N (WGS84)</li>
+              <li><strong>الإسقاط:</strong> EPSG:32638</li>
+              <li><strong>نظام Lat/Lon:</strong> WGS84 (EPSG:4326)</li>
+              <li><strong>وحدة المساحة:</strong> الدونم (1000 متر مربع)</li>
+              <li><strong>وحدة المسافة:</strong> متر</li>
+              <li><strong>التحويل:</strong> proj4.js للتحويل بين الأنظمة</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- English Content -->
+      <div class="content-english">
+        <div class="help-content">
+          <div class="help-section">
+            <h2><i class="fas fa-info-circle"></i> Application Overview</h2>
+            <p>The GPS Coordinate Plotter is an advanced tool for plotting geographic coordinates and calculating areas. Specifically designed for agricultural and surveying use with an easy-to-use Arabic interface.</p>
+            
+            <div class="feature-grid">
+              <div class="feature-card">
+                <h4><i class="fas fa-map-marked-alt"></i> Interactive Mapping</h4>
+                <ul>
+                  <li>High-resolution Google Maps</li>
+                  <li>Multiple map types (Road, Satellite, Hybrid, Terrain)</li>
+                  <li>Real-time coordinate display</li>
+                  <li>Automatic coordinate system conversion</li>
+                  <li>Support multiple coordinate systems (UTM and Lat/Lon)</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-layer-group"></i> Multiple Polygon Management</h4>
+                <ul>
+                  <li>Draw multiple polygons at the same time</li>
+                  <li>Separate management for each polygon</li>
+                  <li>Different colors for each area</li>
+                  <li>Separate calculations for each polygon</li>
+                  <li>Export all polygons together</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-calculator"></i> Advanced Calculations</h4>
+                <ul>
+                  <li>Area calculation in dunums</li>
+                  <li>Perimeter measurement in meters</li>
+                  <li>Distance calculation between points</li>
+                  <li>Instant and accurate results</li>
+                  <li>Total areas for all polygons</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-download"></i> Data Export</h4>
+                <ul>
+                  <li><strong>JSON Export:</strong> Contains all data in organized format</li>
+                  <li><strong>CSV Export:</strong> Organized spreadsheet file for analysis</li>
+                  <li><strong>KML Export:</strong> Google Earth map file</li>
+                  <li><strong>Multiple Export:</strong> Export all polygons in one file</li>
+                  <li><strong>Auto Naming:</strong> Files are automatically named with date and time</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-mouse"></i> How to Use the Application</h2>
+            
+            <h3><i class="fas fa-edit"></i> Entering Coordinates</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>Step 1:</strong> Choose coordinate system (UTM or Lat/Lon)
+              </div>
+              <div class="step-item">
+                <strong>Step 2:</strong> Navigate to the "Coordinate Input" section
+              </div>
+              <div class="step-item">
+                <strong>Step 3:</strong> Enter coordinates in the required format
+              </div>
+              <div class="step-item">
+                <strong>Step 4:</strong> Adjust drawing options (color, opacity, owner name)
+              </div>
+              <div class="step-item">
+                <strong>Step 5:</strong> Click "Draw Polygon" to view results
+              </div>
+              <div class="step-item">
+                <strong>Step 6:</strong> Repeat the process to add more polygons
+              </div>
+            </div>
+
+            <h3><i class="fas fa-draw-polygon"></i> Drawing Lines</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>Step 1:</strong> Right-click at the starting point
+              </div>
+              <div class="step-item">
+                <strong>Step 2:</strong> Right-click again at the ending point
+              </div>
+              <div class="step-item">
+                <strong>Step 3:</strong> Distance will appear on the line automatically
+              </div>
+            </div>
+
+            <h3><i class="fas fa-layer-group"></i> Polygon Management</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <strong>View Polygon:</strong> Click "View" in the polygon list
+              </div>
+              <div class="step-item">
+                <strong>Delete Polygon:</strong> Click "Delete" to remove a specific polygon
+              </div>
+              <div class="step-item">
+                <strong>Select Polygon:</strong> Click on the polygon on the map to select it
+              </div>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-code"></i> Coordinate Format</h2>
+            
+            <h3><i class="fas fa-globe"></i> Supported Coordinate Systems</h3>
+            <p>The application supports two coordinate systems:</p>
+            
+            <div class="feature-grid">
+              <div class="feature-card">
+                <h4><i class="fas fa-grid-3"></i> UTM System</h4>
+                <ul>
+                  <li>Format: <code>Easting,Northing</code></li>
+                  <li>Example: <code>123456.78,9876543.21</code></li>
+                  <li>UTM Zone: 38N</li>
+                  <li>Suitable for agricultural surveying</li>
+                </ul>
+              </div>
+              
+              <div class="feature-card">
+                <h4><i class="fas fa-map-marker-alt"></i> Lat/Lon System</h4>
+                <ul>
+                  <li>Format: <code>Latitude,Longitude</code></li>
+                  <li>Example: <code>31.9539,35.9106</code></li>
+                  <li>WGS84 system</li>
+                  <li>Suitable for general use</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3><i class="fas fa-list"></i> Supported Formats</h3>
+            <p>The application accepts coordinates in the following formats:</p>
+            
+            <div class="code-block">
+              # Single point format
+              Easting,Northing (UTM)
+              123456.78,9876543.21
+              
+              Latitude,Longitude (Lat/Lon)
+              31.9539,35.9106
+              
+              # Multiple points format (one point per line)
+              123456.78,9876543.21
+              234567.89,9876544.32
+              345678.90,9876545.43
+              
+              # Multiple points with separator *
+              123456.78,9876543.21*234567.89,9876544.32
+              345678.90,9876545.43*456789.01,9876546.54
+            </div>
+
+            <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
+            <ul>
+              <li>Choose the appropriate coordinate system before entering data</li>
+              <li>Minimum 3 points required to draw a polygon</li>
+              <li>Use comma (,) to separate coordinates</li>
+              <li>Use * to separate points on the same line</li>
+              <li>Multiple lines can be entered for multiple points</li>
+              <li>Coordinates will be automatically converted for map display</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-cog"></i> Customization Options</h2>
+            
+            <h3><i class="fas fa-palette"></i> Appearance Customization</h3>
+            <ul>
+              <li><strong>Polygon Color:</strong> Choose any color from the color picker</li>
+              <li><strong>Opacity:</strong> Adjust transparency level from 10% to 100%</li>
+              <li><strong>Owner Name:</strong> Enter farmer or owner name to display on map</li>
+              <li><strong>Map Type:</strong> Choose between Road, Satellite, Hybrid, or Terrain</li>
+            </ul>
+
+            <h3><i class="fas fa-map"></i> Map Controls</h3>
+            <ul>
+              <li><strong>Zoom:</strong> Use mouse wheel or + and - buttons</li>
+              <li><strong>Pan:</strong> Drag the map with mouse to navigate</li>
+              <li><strong>Show Coordinates:</strong> Right-click anywhere on the map</li>
+              <li><strong>Change Map Type:</strong> Use radio buttons in control section</li>
+            </ul>
+
+            <h3><i class="fas fa-history"></i> Undo and Redo</h3>
+            <ul>
+              <li><strong>Undo:</strong> Use "Undo" button to undo the last action</li>
+              <li><strong>Redo:</strong> Use "Redo" button to execute the undone action</li>
+              <li><strong>Auto Save:</strong> Data is automatically saved in the browser</li>
+              <li><strong>Data Recovery:</strong> Data saved can be recovered when the application is reopened</li>
+            </ul>
+
+            <h3><i class="fas fa-globe"></i> Coordinate System Selection</h3>
+            <ul>
+              <li><strong>UTM System:</strong> Suitable for agricultural and surveying</li>
+              <li><strong>Lat/Lon System:</strong> Suitable for general use and maps</li>
+              <li><strong>Automatic Conversion:</strong> Coordinates are automatically converted for display</li>
+              <li><strong>Dual Display:</strong> Display coordinates in both systems</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-file-export"></i> Export and Print Data</h2>
+            
+            <h3><i class="fas fa-download"></i> Export Data</h3>
+            <ul>
+              <li><strong>JSON Export:</strong> Contains all data in organized format</li>
+              <li><strong>CSV Export:</strong> Organized spreadsheet file for analysis</li>
+              <li><strong>KML Export:</strong> Google Earth map file</li>
+              <li><strong>Multiple Export:</strong> Export all polygons in one file</li>
+              <li><strong>Auto Naming:</strong> Files are automatically named with date and time</li>
+            </ul>
+
+            <h3><i class="fas fa-print"></i> Print Map</h3>
+            <ul>
+              <li>Click "Print Map" to open print dialog</li>
+              <li>Control elements will be hidden, showing only map and results</li>
+              <li>Map and data can be printed together</li>
+              <li>Supports A4 printing format</li>
+              <li>Print all drawn polygons</li>
+            </ul>
+
+            <h3><i class="fas fa-layer-group"></i> Polygon Management</h3>
+            <ul>
+              <li><strong>Polygon List:</strong> Display all drawn polygons</li>
+              <li><strong>Total Area:</strong> Calculate sum of all polygon areas</li>
+              <li><strong>Delete Polygon:</strong> Remove specific polygon from map</li>
+              <li><strong>Select Polygon:</strong> Display details of specific polygon</li>
+            </ul>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-exclamation-circle"></i> Troubleshooting</h2>
+            
+            <h3><i class="fas fa-times-circle"></i> Common Problems and Solutions</h3>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-map"></i> Map Not Loading</h4>
+              <ul>
+                <li>Check internet connection</li>
+                <li>Verify Google Maps API is working</li>
+                <li>Clear browser cache</li>
+              </ul>
+            </div>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-coordinates"></i> Coordinates Not Plotting</h4>
+              <ul>
+                <li>Check coordinate format</li>
+                <li>Ensure minimum 3 points</li>
+                <li>Verify coordinates are in correct range</li>
+              </ul>
+            </div>
+            
+            <div class="feature-card">
+              <h4><i class="fas fa-download"></i> Export Not Working</h4>
+              <ul>
+                <li>Make sure polygon is drawn first</li>
+                <li>Check browser download settings</li>
+                <li>Verify file permissions</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="help-section">
+            <h2><i class="fas fa-info"></i> Technical Information</h2>
+            
+            <h3><i class="fas fa-server"></i> Technical Requirements</h3>
+            <ul>
+              <li><strong>Browser:</strong> Chrome 60+, Firefox 55+, Safari 12+, Edge 79+</li>
+              <li><strong>Connection:</strong> Internet required for Google Maps</li>
+              <li><strong>Memory:</strong> Minimum 4GB RAM</li>
+              <li><strong>Screen:</strong> Minimum 1024x768 resolution</li>
+            </ul>
+
+            <h3><i class="fas fa-cogs"></i> Coordinate System</h3>
+            <ul>
+              <li><strong>UTM Zone:</strong> 38N (WGS84)</li>
+              <li><strong>Projection:</strong> EPSG:32638</li>
+              <li><strong>Lat/Lon System:</strong> WGS84 (EPSG:4326)</li>
+              <li><strong>Area Unit:</strong> Dunum (1000 square meters)</li>
+              <li><strong>Distance Unit:</strong> Meters</li>
+              <li><strong>Conversion:</strong> proj4.js for coordinate system conversion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="copyright">
+          <i class="fas fa-code"></i>
+          Programmer: Omar Najh | Email: omarnajh@gmail.com
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchLanguage(lang) {
+      const arabicContent = document.querySelector('.content-arabic');
+      const englishContent = document.querySelector('.content-english');
+      const arabicBtn = document.querySelector('.language-btn:first-child');
+      const englishBtn = document.querySelector('.language-btn:last-child');
+      
+      if (lang === 'arabic') {
+        arabicContent.classList.remove('hide');
+        englishContent.classList.remove('show');
+        arabicBtn.classList.add('active');
+        englishBtn.classList.remove('active');
+        document.dir = 'rtl';
+        document.lang = 'ar';
+      } else {
+        arabicContent.classList.add('hide');
+        englishContent.classList.add('show');
+        arabicBtn.classList.remove('active');
+        englishBtn.classList.add('active');
+        document.dir = 'ltr';
+        document.lang = 'en';
+      }
+    }
+  </script>
+</body>
+</html> 

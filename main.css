@@ -19,6 +19,7 @@ body {
   color: #333;
   line-height: 1.6;
   direction: rtl;
+  cursor: pointer !important;
 }
 
 /* Container */
@@ -133,6 +134,7 @@ body {
   height: 500px;
   width: 100%;
   border-radius: 15px 15px 0 0;
+  cursor: pointer !important;
 }
 
 .map-controls {
@@ -1174,5 +1176,47 @@ textarea {
   .coordinate-system-selector .radio-item {
     justify-content: center;
   }
+}
+
+/* Polygon Editing Cursors */
+.editing-cursor {
+  cursor: pointer !important;
+}
+.grabbing-cursor {
+  cursor: grabbing !important;
+}
+
+body, #map {
+  cursor: pointer !important;
+}
+
+/* Language Toggle */
+.language-toggle {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+.language-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  outline: none;
+}
+.language-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+.language-btn.active {
+  background: #2c3e50;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
 }
 

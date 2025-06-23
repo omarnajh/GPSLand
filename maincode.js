@@ -31,7 +31,8 @@
                 lineDistance: 0,
                 history: [], // For undo/redo functionality
                 historyIndex: -1,
-                polygonCounter: 0 // Counter for unique polygon IDs
+                polygonCounter: 0, // Counter for unique polygon IDs
+                isEditingPolygon: false // Track if editing mode is on
             };
             
             this.validators = new Validators();
@@ -150,6 +151,52 @@
 
             document.getElementById('clearMap').addEventListener('click', () => {
                 this.clearMap();
+            });
+
+            document.getElementById('editPolygon').addEventListener('click', () => {
+                this.startEditPolygon();
+            });
+
+            document.getElementById('doneEditPolygon').addEventListener('click', () => {
+                this.doneEditPolygon();
+            });
+
+            document.getElementById('importData').addEventListener('click', () => {
+                document.getElementById('importFileInput').click();
+            });
+            document.getElementById('importFileInput').addEventListener('change', (e) => {
+                const files = Array.from(e.target.files);
+                if (!files.length) return;
+                let allPolygons = [];
+                let filesProcessed = 0;
+                files.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (evt) => {
+                        try {
+                            const data = JSON.parse(evt.target.result);
+                            // Collect polygons from each file
+                            if (Array.isArray(data.polygons)) {
+                                allPolygons = allPolygons.concat(data.polygons);
+                            } else if (Array.isArray(data.coordinates)) {
+                                allPolygons.push(data);
+                            }
+                        } catch (err) {
+                            // Ignore invalid files, but could show error if needed
+                        }
+                        filesProcessed++;
+                        if (filesProcessed === files.length) {
+                            if (allPolygons.length > 0) {
+                                this.importPolygonsFromData({ polygons: allPolygons });
+                                this.uiManager.showToast('تم استيراد جميع البيانات بنجاح!', 'success');
+                            } else {
+                                this.uiManager.showToast('لم يتم العثور على مضلعات صالحة في الملفات', 'error');
+                            }
+                        }
+                    };
+                    reader.readAsText(file);
+                });
+                // Reset input so same file(s) can be re-imported
+                e.target.value = '';
             });
 
             // Global error handler
@@ -422,7 +469,8 @@
                 strokeWeight: 3,
                 fillColor: polygonData.color,
                 fillOpacity: polygonData.opacity,
-                geodesic: true
+                geodesic: true,
+                editable: false // Default, will be set true on selection
             });
             
             polygonData.polygon.setMap(this.state.map);
@@ -430,6 +478,15 @@
             // Add click listener for polygon selection
             polygonData.polygon.addListener('click', () => {
                 this.selectPolygon(polygonData.id);
+            });
+            
+            // Listen for path changes (vertex moved)
+            const path = polygonData.polygon.getPath();
+            path.addListener('set_at', (index) => {
+                this.handlePolygonVertexMoved(polygonData, index);
+            });
+            path.addListener('insert_at', (index) => {
+                this.handlePolygonVertexMoved(polygonData, index);
             });
             
             // Fit map to polygon bounds
@@ -446,62 +503,109 @@
                 this.state.activeInfoWindow = null;
             }
 
+            // Remove old markers if any
+            if (polygonData.markers && polygonData.markers.length) {
+                polygonData.markers.forEach(marker => marker.setMap(null));
+            }
+            polygonData.markers = [];
+
+            // Add draggable markers for each vertex
             polygonData.latLngCoordinates.forEach((coord, index) => {
                 const utm = polygonData.coordinates[index];
                 const marker = new google.maps.Marker({
                     position: coord,
                     map: this.state.map,
+                    draggable: true,
                     label: {
-                        text: `${polygonData.id}_${index + 1}`,
-                        color: '#ffffff',
-                        fontSize: '14px',
+                        text: `${index + 1}`,
+                        color: '#fff',
+                        fontSize: '16px',
                         fontWeight: 'bold'
                     },
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
-                        scale: 10,
+                        scale: 12,
                         fillColor: polygonData.color,
                         fillOpacity: 1,
-                        strokeColor: '#ffffff',
-                        strokeWeight: 2
+                        strokeColor: '#333',
+                        strokeWeight: 3
                     }
                 });
-
-                // Safe info window content
-                const infoWindowContent = this.uiManager.createSafeInfoWindow(`
-                    <div style="font-family: 'Courier New', monospace; font-size: 0.9rem; text-align: left; direction: ltr; line-height: 1.5;">
-                        <strong>${polygonData.farmerName || 'Polygon'} - Point ${index + 1}</strong>
-                        <hr style="margin: 4px 0; border: none; border-top: 1px solid #ccc;">
-                        <strong>UTM:</strong><br>
-                        E ${utm.easting.toFixed(4)}<br>
-                        N ${utm.northing.toFixed(4)}<br>
-                        <hr style="margin: 4px 0; border: none; border-top: 1px solid #ccc;">
-                        <strong>Lat/Lng:</strong><br>
-                        ${coord.lat().toFixed(8)},<br>
-                        ${coord.lng().toFixed(8)}
-                    </div>
-                `);
-
-                const infoWindow = new google.maps.InfoWindow({
-                    content: infoWindowContent
-                });
-
-                marker.addListener('click', () => {
-                    if (this.state.activeInfoWindow) {
-                        this.state.activeInfoWindow.close();
+                // Drag marker to move vertex
+                marker.addListener('drag', (event) => {
+                    polygonData.latLngCoordinates[index] = event.latLng;
+                    if (polygonData.polygon) {
+                        polygonData.polygon.setPath(polygonData.latLngCoordinates);
                     }
-                    infoWindow.open({
-                        anchor: marker,
-                        map: this.state.map,
+                });
+                marker.addListener('dragend', () => {
+                    // Update UTM, recalc, save, show toast
+                    polygonData.coordinates = polygonData.latLngCoordinates.map(latlng => {
+                        const utm = this.coordinateConverter.latLngToUTM(latlng.lat(), latlng.lng());
+                        return { easting: utm[0], northing: utm[1] };
                     });
-                    this.state.activeInfoWindow = infoWindow;
+                    this.calculatePolygonResults(polygonData);
+                    if (this.state.currentPolygonId === polygonData.id) {
+                        this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
+                    }
+                    this.saveToHistory();
+                    this.uiManager.showToast('تم تحديث المضلع!', 'success');
                 });
-                
+                // Double-click to remove vertex (if >3)
+                marker.addListener('dblclick', () => {
+                    if (polygonData.latLngCoordinates.length > 3) {
+                        polygonData.latLngCoordinates.splice(index, 1);
+                        polygonData.coordinates.splice(index, 1);
+                        if (polygonData.polygon) {
+                            polygonData.polygon.setPath(polygonData.latLngCoordinates);
+                        }
+                        this.addMarkers(polygonData);
+                        this.calculatePolygonResults(polygonData);
+                        if (this.state.currentPolygonId === polygonData.id) {
+                            this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
+                        }
+                        this.saveToHistory();
+                        this.uiManager.showToast('تم حذف النقطة!', 'info');
+                    }
+                });
                 polygonData.markers.push(marker);
                 this.state.markers.push(marker);
             });
-            
-            // Add farmer name marker at center
+
+            // Add double-click on polygon edge to add a new point
+            if (polygonData.polygon && !polygonData._edgeDblClickListener) {
+                polygonData.polygon.addListener('dblclick', (event) => {
+                    // Find nearest edge
+                    const latLngs = polygonData.latLngCoordinates;
+                    let minDist = Infinity, insertIdx = 0;
+                    for (let i = 0; i < latLngs.length; i++) {
+                        const next = (i + 1) % latLngs.length;
+                        const dist = google.maps.geometry.spherical.computeDistanceBetween(
+                            event.latLng,
+                            this.closestPointOnSegment(latLngs[i], latLngs[next], event.latLng)
+                        );
+                        if (dist < minDist) {
+                            minDist = dist;
+                            insertIdx = next;
+                        }
+                    }
+                    // Insert new point
+                    polygonData.latLngCoordinates.splice(insertIdx, 0, event.latLng);
+                    const utm = this.coordinateConverter.latLngToUTM(event.latLng.lat(), event.latLng.lng());
+                    polygonData.coordinates.splice(insertIdx, 0, { easting: utm[0], northing: utm[1] });
+                    polygonData.polygon.setPath(polygonData.latLngCoordinates);
+                    this.addMarkers(polygonData);
+                    this.calculatePolygonResults(polygonData);
+                    if (this.state.currentPolygonId === polygonData.id) {
+                        this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
+                    }
+                    this.saveToHistory();
+                    this.uiManager.showToast('تمت إضافة نقطة جديدة!', 'success');
+                });
+                polygonData._edgeDblClickListener = true;
+            }
+
+            // Add farmer name marker at center (not draggable for edit simplicity)
             if (polygonData.farmerName && polygonData.latLngCoordinates.length > 0) {
                 const center = this.getPolygonCenter(polygonData.latLngCoordinates);
                 const nameMarker = new google.maps.Marker({
@@ -516,11 +620,18 @@
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         scale: 0
-                    }
+                    },
+                    draggable: false
                 });
-                
                 polygonData.markers.push(nameMarker);
                 this.state.markers.push(nameMarker);
+            }
+
+            // Show tooltip during editing
+            if (this.state.currentPolygonId === polygonData.id) {
+                this.showEditTooltip();
+            } else {
+                this.hideEditTooltip();
             }
         }
 
@@ -566,26 +677,46 @@
         // Select a polygon
         selectPolygon(polygonId) {
             this.state.currentPolygonId = polygonId;
+            this.state.polygons.forEach(p => {
+                if (p.polygon) {
+                    p.polygon.setEditable(false);
+                    p.polygon.setOptions({ strokeColor: p.color, fillColor: p.color });
+                }
+            });
             const polygonData = this.state.polygons.find(p => p.id === polygonId);
-            
+            if (polygonData && polygonData.polygon) {
+                polygonData.polygon.setEditable(true);
+                // Set editing cursor on map
+                document.getElementById('map').classList.add('editing-cursor');
+                // Add listeners for grabbing cursor on drag
+                if (!polygonData._dragListenersAdded) {
+                    const path = polygonData.polygon.getPath();
+                    path.addListener('insert_at', () => this.setGrabbingCursor(true));
+                    path.addListener('set_at', () => this.setGrabbingCursor(true));
+                    path.addListener('remove_at', () => this.setGrabbingCursor(false));
+                    polygonData.polygon.addListener('mouseup', () => this.setGrabbingCursor(false));
+                    polygonData.polygon.addListener('dragend', () => this.setGrabbingCursor(false));
+                    polygonData._dragListenersAdded = true;
+                }
+            } else {
+                document.getElementById('map').classList.remove('editing-cursor');
+                this.setGrabbingCursor(false);
+            }
             if (polygonData) {
                 // Update UI with selected polygon data
                 this.uiManager.updateResults(polygonData.area, polygonData.perimeter, polygonData.latLngCoordinates.length);
                 this.uiManager.updateDistanceResults(polygonData.distances);
                 this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
-                
                 // Update form fields
                 const farmerInput = document.getElementById('farmerName');
                 const colorInput = document.getElementById('polygonColor');
                 const opacityInput = document.getElementById('polygonOpacity');
-                
                 if (farmerInput) farmerInput.value = polygonData.farmerName;
                 if (colorInput) colorInput.value = polygonData.color;
                 if (opacityInput) {
                     opacityInput.value = polygonData.opacity;
                     document.getElementById('opacityValue').textContent = Math.round(polygonData.opacity * 100) + '%';
                 }
-                
                 this.uiManager.showToast(`تم تحديد المضلع: ${polygonData.farmerName || 'غير محدد'}`, 'info');
             }
         }
@@ -679,6 +810,11 @@
             }
             
             this.uiManager.showToast(`تم حذف المضلع: ${polygonData.farmerName || 'غير محدد'}`, 'success');
+            document.getElementById('editPolygon').style.display = 'none';
+            document.getElementById('doneEditPolygon').style.display = 'none';
+            document.getElementById('editInstructions').style.display = 'none';
+            document.getElementById('map').classList.remove('editing-cursor');
+            this.setGrabbingCursor(false);
         }
 
         // Enhanced clearMap with multiple polygon support
@@ -724,6 +860,11 @@
             this.updatePolygonList();
             
             this.uiManager.showToast('تم مسح جميع المضلعات', 'info');
+            document.getElementById('editPolygon').style.display = 'none';
+            document.getElementById('doneEditPolygon').style.display = 'none';
+            document.getElementById('editInstructions').style.display = 'none';
+            document.getElementById('map').classList.remove('editing-cursor');
+            this.setGrabbingCursor(false);
         }
 
         // Enhanced exportData with multiple polygon support
@@ -1107,6 +1248,226 @@
         clearCoordinateInput() {
             document.getElementById('coordinateInput').value = '';
             this.uiManager.showToast('تم مسح الإحداثيات', 'info');
+        }
+
+        // Handle polygon vertex moved
+        handlePolygonVertexMoved(polygonData, index) {
+            // Update latLngCoordinates from polygon path
+            const path = polygonData.polygon.getPath();
+            polygonData.latLngCoordinates = path.getArray();
+            // Update UTM coordinates
+            polygonData.coordinates = polygonData.latLngCoordinates.map(latlng => {
+                const utm = this.coordinateConverter.latLngToUTM(latlng.lat(), latlng.lng());
+                return { easting: utm[0], northing: utm[1] };
+            });
+            // Recalculate area, perimeter, distances
+            this.calculatePolygonResults(polygonData);
+            // Update GPS coordinate list in UI
+            if (this.state.currentPolygonId === polygonData.id) {
+                this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
+            }
+            // Save to history
+            this.saveToHistory();
+        }
+
+        // Handle dragging the center (main) marker to move the whole polygon
+        handleCenterMarkerDragged(polygonData, newCenterLatLng) {
+            // Calculate offset
+            const oldCenter = this.getPolygonCenter(polygonData.latLngCoordinates);
+            const dLat = newCenterLatLng.lat() - oldCenter.lat();
+            const dLng = newCenterLatLng.lng() - oldCenter.lng();
+            // Move all points by the offset
+            polygonData.latLngCoordinates = polygonData.latLngCoordinates.map(latlng =>
+                new google.maps.LatLng(latlng.lat() + dLat, latlng.lng() + dLng)
+            );
+            // Update polygon path
+            if (polygonData.polygon) {
+                polygonData.polygon.setPath(polygonData.latLngCoordinates);
+            }
+            // Update UTM coordinates
+            polygonData.coordinates = polygonData.latLngCoordinates.map(latlng => {
+                const utm = this.coordinateConverter.latLngToUTM(latlng.lat(), latlng.lng());
+                return { easting: utm[0], northing: utm[1] };
+            });
+            // Move all point markers
+            polygonData.markers.forEach(marker => {
+                if (marker !== undefined && marker.getLabel && marker.getLabel() && marker.getLabel().text !== polygonData.farmerName) {
+                    // Find corresponding index
+                    const idx = polygonData.markers.indexOf(marker);
+                    if (idx >= 0 && idx < polygonData.latLngCoordinates.length) {
+                        marker.setPosition(polygonData.latLngCoordinates[idx]);
+                    }
+                }
+            });
+            // Move the center marker itself
+            const center = this.getPolygonCenter(polygonData.latLngCoordinates);
+            const centerMarker = polygonData.markers.find(m => m.getLabel && m.getLabel().text === polygonData.farmerName);
+            if (centerMarker) centerMarker.setPosition(center);
+            // Recalculate area, perimeter, distances
+            this.calculatePolygonResults(polygonData);
+            // Update GPS coordinate list in UI
+            if (this.state.currentPolygonId === polygonData.id) {
+                this.displayGpsCoordinates(polygonData.coordinates, polygonData.latLngCoordinates, polygonData.coordinateSystem);
+            }
+            // Save to history
+            this.saveToHistory();
+        }
+
+        // Start editing the selected polygon
+        startEditPolygon() {
+            if (!this.state.currentPolygonId) return;
+            const polygonData = this.state.polygons.find(p => p.id === this.state.currentPolygonId);
+            if (polygonData && polygonData.polygon) {
+                polygonData.polygon.setEditable(true);
+                polygonData.polygon.setOptions({ strokeColor: '#007bff', fillColor: '#cce6ff' });
+                this.state.isEditingPolygon = true;
+                document.getElementById('editPolygon').style.display = 'none';
+                document.getElementById('doneEditPolygon').style.display = 'inline-block';
+                document.getElementById('editInstructions').style.display = 'block';
+            }
+        }
+
+        // Finish editing the polygon
+        doneEditPolygon() {
+            if (!this.state.currentPolygonId) return;
+            const polygonData = this.state.polygons.find(p => p.id === this.state.currentPolygonId);
+            if (polygonData && polygonData.polygon) {
+                polygonData.polygon.setEditable(false);
+                polygonData.polygon.setOptions({ strokeColor: polygonData.color, fillColor: polygonData.color });
+                this.state.isEditingPolygon = false;
+                document.getElementById('editPolygon').style.display = 'inline-block';
+                document.getElementById('doneEditPolygon').style.display = 'none';
+                document.getElementById('editInstructions').style.display = 'none';
+                this.saveToHistory();
+            }
+        }
+
+        // Set or unset grabbing cursor
+        setGrabbingCursor(isGrabbing) {
+            const mapDiv = document.getElementById('map');
+            if (!mapDiv) return;
+            if (isGrabbing) {
+                mapDiv.classList.add('grabbing-cursor');
+            } else {
+                mapDiv.classList.remove('grabbing-cursor');
+            }
+        }
+
+        // Utility: Find closest point on segment AB to point P
+        closestPointOnSegment(A, B, P) {
+            const toRad = x => x * Math.PI / 180;
+            const toDeg = x => x * 180 / Math.PI;
+            const lat1 = toRad(A.lat()), lng1 = toRad(A.lng());
+            const lat2 = toRad(B.lat()), lng2 = toRad(B.lng());
+            const lat3 = toRad(P.lat()), lng3 = toRad(P.lng());
+            const dx = lng2 - lng1, dy = lat2 - lat1;
+            if (dx === 0 && dy === 0) return A;
+            const t = ((lng3 - lng1) * dx + (lat3 - lat1) * dy) / (dx * dx + dy * dy);
+            if (t < 0) return A;
+            if (t > 1) return B;
+            return new google.maps.LatLng(toDeg(lat1 + t * dy), toDeg(lng1 + t * dx));
+        }
+
+        // Show/hide edit tooltip
+        showEditTooltip() {
+            let tooltip = document.getElementById('polygonEditTooltip');
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.id = 'polygonEditTooltip';
+                tooltip.style.position = 'absolute';
+                tooltip.style.top = '80px';
+                tooltip.style.left = '50%';
+                tooltip.style.transform = 'translateX(-50%)';
+                tooltip.style.background = '#007bff';
+                tooltip.style.color = '#fff';
+                tooltip.style.padding = '10px 20px';
+                tooltip.style.borderRadius = '8px';
+                tooltip.style.fontWeight = 'bold';
+                tooltip.style.zIndex = 9999;
+                tooltip.innerText = 'اسحب النقاط لتعديل المضلع. دبل كليك على الحافة لإضافة نقطة، دبل كليك على نقطة لحذفها.';
+                document.body.appendChild(tooltip);
+            }
+            tooltip.style.display = 'block';
+        }
+
+        hideEditTooltip() {
+            const tooltip = document.getElementById('polygonEditTooltip');
+            if (tooltip) tooltip.style.display = 'none';
+        }
+
+        // Import polygons from exported JSON data
+        importPolygonsFromData(data) {
+            // Support both single and multiple polygon export
+            let polygons = [];
+            if (Array.isArray(data.polygons)) {
+                polygons = data.polygons;
+            } else if (Array.isArray(data.coordinates)) {
+                polygons = [data];
+            } else {
+                this.uiManager.showToast('لا توجد مضلعات صالحة في الملف', 'error');
+                return;
+            }
+            // Clear current map
+            this.clearMap();
+            // Color palette for distinct polygons
+            const colorPalette = [
+                '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
+                '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3',
+                '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'
+            ];
+            let colorIndex = 0;
+            polygons.forEach(poly => {
+                // Accept both UTM and LatLng
+                let latLngCoordinates = [];
+                if (poly.coordinates && poly.coordinates.length > 0 && poly.coordinates[0].easting !== undefined) {
+                    // UTM
+                    latLngCoordinates = poly.coordinates.map(coord => {
+                        const latlng = this.coordinateConverter.utmToLatLng(coord.easting, coord.northing);
+                        return new google.maps.LatLng(latlng[1], latlng[0]);
+                    });
+                } else if (poly.coordinates && poly.coordinates.length > 0 && poly.coordinates[0].lat !== undefined) {
+                    // LatLng
+                    latLngCoordinates = poly.coordinates.map(coord => new google.maps.LatLng(coord.lat, coord.lng));
+                }
+                const coordinates = latLngCoordinates.map(latlng => {
+                    const utm = this.coordinateConverter.latLngToUTM(latlng.lat(), latlng.lng());
+                    return { easting: utm[0], northing: utm[1] };
+                });
+                // Assign a distinct color from the palette
+                const assignedColor = colorPalette[colorIndex % colorPalette.length];
+                colorIndex++;
+                const polygonData = {
+                    id: this.generatePolygonId(),
+                    coordinates: coordinates,
+                    latLngCoordinates: latLngCoordinates,
+                    coordinateSystem: 'utm',
+                    farmerName: poly.farmerName || '',
+                    color: assignedColor,
+                    opacity: poly.opacity || this.state.polygonOpacity,
+                    polygon: null,
+                    markers: [],
+                    area: 0,
+                    perimeter: 0,
+                    timestamp: poly.timestamp || new Date().toISOString()
+                };
+                this.drawPolygon(polygonData);
+                this.addMarkers(polygonData);
+                this.calculatePolygonResults(polygonData);
+                this.state.polygons.push(polygonData);
+            });
+            if (this.state.polygons.length > 0) {
+                this.state.currentPolygonId = this.state.polygons[0].id;
+                this.selectPolygon(this.state.currentPolygonId);
+                // Show GPS and details for the first imported polygon
+                const firstPoly = this.state.polygons[0];
+                this.displayGpsCoordinates(firstPoly.coordinates, firstPoly.latLngCoordinates, firstPoly.coordinateSystem);
+                this.uiManager.updateResults(firstPoly.area, firstPoly.perimeter, firstPoly.latLngCoordinates.length);
+                this.uiManager.updateDistanceResults(firstPoly.distances);
+                this.uiManager.showSection('resultsSection', true);
+                this.uiManager.showSection('coordinatesSection', true);
+            }
+            this.updatePolygonList();
+            this.saveToHistory();
         }
     }
 

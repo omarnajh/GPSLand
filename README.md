@@ -1,211 +1,205 @@
-# تطبيق تحديد الإحداثيات - GPS Coordinate Plotter
+# 🇸🇦 الدليل باللغة العربية
 
-A modern, secure, and feature-rich web application for plotting GPS coordinates on Google Maps and calculating land areas. Designed specifically for agricultural land mapping with Arabic interface support.
+تطبيق حديث وآمن وغني بالميزات لرسم إحداثيات GPS على خرائط Google وحساب مساحات الأراضي. مصمم خصيصًا لمسح الأراضي الزراعية مع دعم كامل للواجهة العربية.
 
-## 🌟 Enhanced Features
+## 🌟 الميزات المحسنة
 
-### 🗺️ **Interactive Mapping**
-- **Multiple Map Types**: Roadmap, Satellite, Hybrid, and Terrain views
-- **Real-time Coordinate Display**: Right-click anywhere on the map to see coordinates
-- **UTM & Lat/Lng Conversion**: Automatic coordinate system conversion with validation
-- **Line Drawing**: Right-click to draw lines and measure distances
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+### 🗺️ **رسم خرائط تفاعلي**
+- **أنواع خرائط متعددة**: طرق، أقمار صناعية، هجينة، وتضاريس
+- **عرض الإحداثيات في الوقت الفعلي**: انقر بزر الفأرة الأيمن في أي مكان على الخريطة لعرض الإحداثيات
+- **تحويل تلقائي بين UTM و Lat/Lng** مع التحقق من صحة البيانات
+- **رسم خطوط**: انقر بزر الفأرة الأيمن لرسم خط وقياس المسافة
+- **تصميم متجاوب**: يعمل بشكل مثالي على الحاسوب والتابلت والجوال
 
-### 🟦 **Advanced Polygon Editing**
-- **Always-editable polygons**: No special edit mode needed; polygons are always editable
-- **Large draggable markers**: Easily drag points to reshape polygons
-- **Double-click to add/remove points**: Double-click edge to add, double-click a point to remove (if >3 points)
-- **Real-time updates**: Area, perimeter, and distances update instantly as you edit
-- **Visual cues**: Hand/grab cursor and tooltips during editing
-- **Undo/Redo**: Full history management for all actions
+### 🟦 **تحرير متقدم للمضلعات**
+- **مضلعات قابلة للتحرير دائمًا**: لا حاجة لوضع خاص للتحرير
+- **مؤشرات كبيرة قابلة للسحب**: اسحب النقاط بسهولة لتغيير شكل المضلع
+- **انقر مزدوجًا لإضافة/إزالة نقاط**: انقر مزدوجًا على الحافة للإضافة أو على النقطة للإزالة (إذا كان هناك أكثر من 3 نقاط)
+- **تحديثات فورية**: المساحة والمحيط والمسافات تتحدث مباشرة أثناء التحرير
+- **إشعارات بصرية**: مؤشر يد/سحب ونصائح أثناء التحرير
+- **تراجع/إعادة**: إدارة كاملة للتاريخ لجميع الإجراءات
 
-### 🟩 **Multiple Polygon Management**
-- **Draw and manage multiple polygons simultaneously**
-- **Distinct colors for each polygon**: Auto-assigned on import for easy distinction
-- **Separate calculations and details for each polygon**
-- **Export all polygons together or individually (JSON, CSV, KML)**
-- **Import multiple polygons at once**: Import several JSON files, each gets a unique color
-- **First imported polygon's details shown automatically**
+### 🟩 **إدارة متعددة للمضلعات**
+- **رسم وإدارة عدة مضلعات في نفس الوقت**
+- **ألوان مميزة لكل مضلع**: تعيين تلقائي عند الاستيراد للتمييز
+- **حسابات وتفاصيل منفصلة لكل مضلع**
+- **تصدير جميع المضلعات معًا أو بشكل فردي (JSON, CSV, KML)**
+- **استيراد عدة مضلعات دفعة واحدة**: كل ملف JSON يحصل على لون فريد
+- **عرض تفاصيل أول مضلع مستورد تلقائيًا**
 
-### 🧑‍🌾 **Farmer Name & Center Marker**
-- **Draggable center marker**: Move the entire polygon by dragging the farmer/owner marker
-- **Farmer/owner name label**: Displayed on the map for each polygon
+### 🧑‍🌾 **اسم المزارع ومؤشر المركز**
+- **مؤشر مركز قابل للسحب**: حرك المضلع بالكامل بسحب مؤشر اسم المزارع
+- **اسم المزارع/المالك**: يظهر على الخريطة لكل مضلع
 
-### 🖌️ **Visual Customization**
-- **Custom Colors**: Choose any color for polygon and markers
-- **Opacity Control**: Adjust polygon fill transparency
-- **Modern UI**: Card-based layout, smooth animations, and responsive design
+### 🖌️ **تخصيص بصري**
+- **ألوان مخصصة**: اختر أي لون للمضلع والمؤشرات
+- **تحكم في الشفافية**: عدل شفافية تعبئة المضلع
+- **واجهة حديثة**: تصميم بطاقات، حركات سلسة، وتجاوب كامل
 
-### 📈 **Advanced Calculations**
-- **Area Calculation**: Automatic area computation in dunums (1 dunum = 2500 m²)
-- **Perimeter Measurement**: Total boundary length calculation
-- **Distance Between Points**: Individual segment measurements
-- **Validation**: Coordinate range validation and error handling
+### 📈 **حسابات متقدمة**
+- **حساب المساحة**: حساب تلقائي للمساحة بالدونم (1 دونم = 2500 م²)
+- **قياس المحيط**: حساب طول الحدود الكلي
+- **المسافة بين النقاط**: قياس كل ضلع على حدة
+- **التحقق من صحة البيانات**: التحقق من مدى الإحداثيات ومعالجة الأخطاء
 
-### 💾 **Enhanced Data Management**
-- **Multiple Export Formats**: JSON, CSV, and KML export
-- **Data Persistence**: Automatic localStorage saving and restoration
-- **Print Support**: Print maps and calculations (A4 format)
-- **Auto-save**: Automatic data saving with history management
+### 💾 **إدارة بيانات محسنة**
+- **تنسيقات تصدير متعددة**: تصدير بصيغ JSON, CSV, KML
+- **حفظ تلقائي**: حفظ واسترجاع البيانات تلقائيًا من المتصفح
+- **دعم الطباعة**: طباعة الخرائط والنتائج (A4)
+- **حفظ تلقائي مع إدارة التاريخ**
 
-### 🌐 **Language Support**
-- **Full Arabic (RTL) and English support**
-- **Instant language toggle**
+### 🌐 **دعم اللغة**
+- **دعم كامل للعربية (من اليمين لليسار) والإنجليزية**
+- **تبديل فوري بين اللغتين**
 
-### 👥 **Visitor Counter**
-- **Visitor counter displayed in the footer (local to each device)**
+### 👥 **عداد الزوار**
+- **عداد زوار يظهر في التذييل (محلي لكل جهاز)**
 
-### 🧑‍💻 **User Experience**
-- **Toast Notifications**: Real-time feedback and status updates
-- **Loading Indicators**: Visual feedback during processing
-- **Error Handling**: Comprehensive error messages and validation
-- **Keyboard Shortcuts**: Enhanced accessibility
+### 🧑‍💻 **تجربة المستخدم**
+- **إشعارات فورية**: رسائل حالة وتحديثات مباشرة
+- **مؤشرات تحميل**: إشعارات بصرية أثناء المعالجة
+- **معالجة الأخطاء**: رسائل شاملة للتحقق من الصحة
+- **اختصارات لوحة المفاتيح**: وصول أسرع وأسهل
 
-## 🚀 Quick Start
+## 🚀 البدء السريع
 
-### Prerequisites
-- Modern web browser (Chrome 60+, Firefox 55+, Safari 12+, Edge 79+)
-- Internet connection (for Google Maps API)
-- Google Maps API key (required for production use)
+### المتطلبات
+- متصفح حديث (Chrome 60+، Firefox 55+، Safari 12+، Edge 79+)
+- اتصال بالإنترنت (لاستخدام خرائط Google)
+- مفتاح Google Maps API (مطلوب للاستخدام الفعلي)
 
-### Installation
+### التثبيت
 
-#### 1. **Get Google Maps API Key**
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Maps JavaScript API and Geometry Library
-4. Create credentials (API Key)
-5. Set up billing (required for API usage)
+#### 1. **الحصول على مفتاح Google Maps API**
+1. اذهب إلى [Google Cloud Console](https://console.cloud.google.com/)
+2. أنشئ مشروعًا جديدًا أو اختر مشروعًا موجودًا
+3. فعّل Maps JavaScript API و Geometry Library
+4. أنشئ بيانات اعتماد (API Key)
+5. فعّل الفوترة (مطلوب للاستخدام)
 
-#### 2. **Configure the Application**
-1. Open `config.js`
-2. Replace `'YOUR_API_KEY_HERE'` with your actual Google Maps API key
-3. Adjust other settings as needed (UTM zone, center coordinates, etc.)
+#### 2. **إعداد التطبيق**
+1. افتح ملف `config.js`
+2. استبدل `'YOUR_API_KEY_HERE'` بمفتاحك الفعلي
+3. عدل الإعدادات الأخرى حسب الحاجة (منطقة UTM، مركز الخريطة، ...)
 
-#### 3. **Run the Application**
-1. Open `index.html` in your web browser
-2. The application will load with configuration validation
-3. Start plotting coordinates!
+#### 3. **تشغيل التطبيق**
+1. افتح `index.html` في متصفحك
+2. سيعمل التطبيق مع التحقق من الإعدادات
+3. ابدأ برسم الإحداثيات!
 
-### Basic Usage
+### الاستخدام الأساسي
 
-#### 1. **Enter Coordinates**
+#### 1. **إدخال الإحداثيات**
 ```
-Format: Easting,Northing
-Example: 123456.78,9876543.21
+الصيغة: Easting,Northing
+مثال: 123456.78,9876543.21
 
-Multiple points:
+عدة نقاط:
 123456.78,9876543.21
 234567.89,9876544.32
 345678.90,9876545.43
 ```
 
-#### 2. **Draw Lines**
-- **Right-click** to start drawing a line
-- **Right-click** again to end the line and see distance
+#### 2. **رسم الخطوط**
+- **انقر بزر الفأرة الأيمن** لبدء رسم خط
+- **انقر بزر الفأرة الأيمن مرة أخرى** لإنهاء الخط وعرض المسافة
 
-#### 3. **Customize Appearance**
-- Set farmer/owner name
-- Choose polygon color
-- Adjust transparency level
+#### 3. **تخصيص المظهر**
+- أدخل اسم المزارع/المالك
+- اختر لون المضلع
+- عدل مستوى الشفافية
 
-#### 4. **Draw Polygon**
-- Click "رسم المضلع" (Draw Polygon)
-- View results automatically
+#### 4. **رسم المضلع**
+- انقر على "رسم المضلع"
+- ستظهر النتائج تلقائيًا
 
-#### 5. **Export Data**
-- Click "تصدير البيانات" (Export Data)
-- Download JSON and CSV files with all information
+#### 5. **تصدير البيانات**
+- انقر على "تصدير البيانات"
+- حمّل ملفات JSON وCSV بكل التفاصيل
 
-#### 6. **Undo/Redo**
-- Use "تراجع" (Undo) and "إعادة" (Redo) buttons
-- Full history management for all actions
+#### 6. **تراجع/إعادة**
+- استخدم أزرار "تراجع" و"إعادة"
+- إدارة كاملة للتاريخ لكل إجراء
 
-## 📋 Coordinate Format
+## 📋 صيغة الإحداثيات
 
-### Supported Formats
-- **UTM Coordinates**: `Easting,Northing`
-- **Multiple Points**: One coordinate pair per line
-- **Separators**: Use `*` to separate multiple points on same line
+### الصيغ المدعومة
+- **إحداثيات UTM**: `Easting,Northing`
+- **عدة نقاط**: كل زوج إحداثيات في سطر
+- **فواصل**: استخدم `*` للفصل بين عدة نقاط في نفس السطر
 
-### Validation Rules
-- **Easting**: 0 to 1,000,000 meters
-- **Northing**: 0 to 10,000,000 meters
-- **Minimum Points**: 3 points for polygon
-- **Maximum Points**: 1,000 points per polygon
+### قواعد التحقق
+- **Easting**: من 0 إلى 1,000,000 متر
+- **Northing**: من 0 إلى 10,000,000 متر
+- **الحد الأدنى للنقاط**: 3 نقاط لرسم مضلع
+- **الحد الأقصى للنقاط**: 1,000 نقطة لكل مضلع
 
-### Examples
+### أمثلة
 ```
-Single point:
+نقطة واحدة:
 123456.78,9876543.21
 
-Multiple points:
+عدة نقاط:
 123456.78,9876543.21
 234567.89,9876544.32
 345678.90,9876545.43
 
-Multiple points with separator:
+عدة نقاط بفاصل:
 123456.78,9876543.21*234567.89,9876544.32
 345678.90,9876545.43*456789.01,9876546.54
 ```
 
-## 🛠️ Technical Details
+## 🛠️ تفاصيل تقنية
 
-### Architecture
-- **Modular Design**: Class-based architecture with separation of concerns
-- **Security**: Input validation, XSS protection, and error handling
-- **Performance**: Optimized DOM manipulation and memory management
-- **Maintainability**: Clean code structure with proper documentation
+### الهيكلية
+- **تصميم معياري**: بنية تعتمد على الفئات مع فصل المهام
+- **الأمان**: تحقق من صحة المدخلات، حماية من XSS، ومعالجة الأخطاء
+- **الأداء**: تحسين التعامل مع DOM وإدارة الذاكرة
+- **سهولة الصيانة**: كود منظم ووثائق واضحة
 
-### Coordinate System
-- **UTM Zone**: 38N (WGS84) - configurable
-- **Projection**: EPSG:32638
-- **Area Unit**: Dunum (2500 m²) - configurable
-- **Distance Unit**: Meters
+### نظام الإحداثيات
+- **منطقة UTM**: 38N (WGS84) - قابلة للتعديل
+- **الإسقاط**: EPSG:32638
+- **وحدة المساحة**: دونم (2500 م²) - قابلة للتعديل
+- **وحدة المسافة**: متر
 
-### Dependencies
-- **Google Maps API**: Interactive mapping and geometry calculations
-- **proj4.js**: Coordinate system conversion
-- **Font Awesome**: Icons and visual elements
-- **Cairo Font**: Arabic typography
+### الاعتمادات
+- **Google Maps API**: رسم الخرائط وحساب المسافات
+- **proj4.js**: تحويل أنظمة الإحداثيات
+- **Font Awesome**: الأيقونات والعناصر البصرية
+- **خط Cairo**: دعم الخط العربي
 
-### Browser Support
+### دعم المتصفحات
 - Chrome 60+
 - Firefox 55+
 - Safari 12+
 - Edge 79+
 
-## 📱 Mobile Support
+## 📱 دعم الجوال
 
-The application is fully responsive and optimized for mobile devices:
-- Touch-friendly interface
-- Optimized map controls
-- Responsive layout
-- Mobile-optimized buttons and inputs
+التطبيق متجاوب بالكامل ومهيأ للأجهزة المحمولة:
+- واجهة سهلة للمس
+- تحكم محسن في الخريطة
+- تصميم متجاوب
+- أزرار ومدخلات مناسبة للجوال
 
-## 🎨 Customization
+## 🎨 التخصيص
 
-### Configuration Options
-All settings are configurable in `config.js`:
-- API keys and endpoints
-- Coordinate system parameters
-- UI settings and defaults
-- Error and success messages
-- Export formats and options
+### خيارات الإعداد
+كل الإعدادات قابلة للتعديل في `config.js`:
+- مفاتيح API ونقاط النهاية
+- معلمات نظام الإحداثيات
+- إعدادات وواجهات المستخدم الافتراضية
+- رسائل الخطأ والنجاح
+- تنسيقات وخيارات التصدير
 
-### Colors and Styling
-- Modern gradient backgrounds
-- Card-based layout
-- Smooth animations
-- Custom button styles
-- Toast notifications
+### الألوان والتصميم
+- خلفيات متدرجة حديثة
+- تصميم بطاقات
+- حركات سلسة
+- أنماط أزرار مخصصة
 
-### Language Support
-- Primary: Arabic (RTL)
-- Secondary: English labels
-- Extensible for other languages
-
-## 🔧 Configuration
+## 🔧 الإعداد
 
 ### Google Maps API
 To use your own API key:

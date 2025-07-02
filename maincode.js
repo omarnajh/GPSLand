@@ -76,7 +76,7 @@
         initMap() {
             const mapOptions = {
                 zoom: 10,
-                center: { lat: 31.9539, lng: 35.9106 }, // Jordan center
+                center: { lat: 34.93377183, lng: 43.40487782 }, // seneh center
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: false,
                 streetViewControl: false,
@@ -224,9 +224,27 @@
         displayCurrentCoordinates(latLng) {
             const coordinateDisplay = document.getElementById('currentCoordinates');
             if (coordinateDisplay) {
+                // Convert to UTM using the coordinateConverter
+                let utm = ["-", "-"];
+                if (this.coordinateConverter && typeof this.coordinateConverter.latLngToUTM === 'function') {
+                    try {
+                        utm = this.coordinateConverter.latLngToUTM(latLng.lat(), latLng.lng());
+                    } catch (e) {
+                        utm = ["Error", "Error"];
+                    }
+                }
                 coordinateDisplay.innerHTML = `
-                    <span><strong>Lat:</strong> ${latLng.lat().toFixed(8)}</span><br>
-                    <span><strong>Lng:</strong> ${latLng.lng().toFixed(8)}</span>
+                    <div style="margin-bottom:8px;">
+                        <strong>UTM Coordinates:</strong><br>
+                        <span style='margin-left:10px;'><strong>Easting:</strong> ${parseFloat(utm[0]).toFixed(2)}</span><br>
+                        <span style='margin-left:10px;'><strong>Northing:</strong> ${parseFloat(utm[1]).toFixed(2)}</span>
+                    </div>
+                    <hr style="margin:8px 0; border:0; border-top:1px solid #ccc;">
+                    <div>
+                        <strong>Lat/Lng Coordinates:</strong><br>
+                        <span style='margin-left:10px;'><strong>Latitude:</strong> ${latLng.lat().toFixed(8)}</span><br>
+                        <span style='margin-left:10px;'><strong>Longitude:</strong> ${latLng.lng().toFixed(8)}</span>
+                    </div>
                 `;
             }
         }

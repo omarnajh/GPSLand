@@ -40,6 +40,10 @@
             this.dataManager = new DataManager();
             this.uiManager = new UIManager();
             
+            this.tempPoints = [];
+            this.tempMarkers = [];
+            this.customMenu = null;
+            
             this.init();
         }
 
@@ -88,15 +92,336 @@
             this.state.map = new google.maps.Map(document.getElementById('map'), mapOptions);
             this.state.geocoder = new google.maps.Geocoder();
 
-            // Add map click listener for coordinates display
+            // Add map click listener for coordinates display and point collection
             this.state.map.addListener('click', (event) => {
                 this.displayCurrentCoordinates(event.latLng);
+                this.addTempPoint(event.latLng);
             });
 
-            // Add right-click listener for line drawing
+            // Add right-click listener for custom menu
             this.state.map.addListener('rightclick', (event) => {
-                this.handleRightClick(event);
+                this.showCustomMenu(event);
             });
+        }
+
+        addTempPoint(latLng) {
+            this.tempPoints.push(latLng);
+            const marker = new google.maps.Marker({
+                position: latLng,
+                map: this.state.map,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 6,
+                    fillColor: '#007bff',
+                    fillOpacity: 1,
+                    strokeColor: '#fff',
+                    strokeWeight: 2
+                }
+            });
+            this.tempMarkers.push(marker);
+        }
+
+        clearTempPoints() {
+            this.tempPoints = [];
+            this.tempMarkers.forEach(m => m.setMap(null));
+            this.tempMarkers = [];
+        }
+
+        showCustomMenu(event) {
+            if (this.tempPoints.length < 3) return; // Only show if more than 2 points
+            this.removeCustomMenu();
+            const lang = window.APP_LANG || 'ar';
+            const menu = document.createElement('div');
+            menu.id = 'customMapMenu';
+            menu.style.position = 'absolute';
+            menu.style.zIndex = 10000;
+            menu.style.background = '#fff';
+            menu.style.border = '1px solid #ccc';
+            menu.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+            menu.style.padding = '8px 0';
+            menu.style.borderRadius = '6px';
+            menu.style.minWidth = '220px';
+            menu.style.fontFamily = 'inherit';
+            menu.style.top = event.domEvent.clientY + 'px';
+            menu.style.left = event.domEvent.clientX + 'px';
+            menu.innerHTML = `
+                <div style="padding:8px 16px;cursor:pointer;" id="menuDrawPolygon">
+                  <span class="lang-ar" style="${lang === 'ar' ? '' : 'display:none;'}">رسم مضلع وعرض البيانات</span>
+                  <span class="lang-en" style="${lang === 'en' ? '' : 'display:none;'}">Draw Polygon & Show Data</span>
+                </div>
+                <div style="padding:8px 16px;cursor:pointer;" id="menuDistances">
+                  <span class="lang-ar" style="${lang === 'ar' ? '' : 'display:none;'}">الحصول على جميع المسافات</span>
+                  <span class="lang-en" style="${lang === 'en' ? '' : 'display:none;'}">Get All Distances</span>
+                </div>
+                <div style="padding:8px 16px;cursor:pointer;" id="menuCopyPoints">
+                  <span class="lang-ar" style="${lang === 'ar' ? '' : 'display:none;'}">نسخ نقاط GPS إلى المدخل</span>
+                  <span class="lang-en" style="${lang === 'en' ? '' : 'display:none;'}">Copy GPS Points to Input</span>
+                </div>
+            `;
+            document.body.appendChild(menu);
+            this.customMenu = menu;
+            // Menu actions
+            document.getElementById('menuDrawPolygon').onclick = () => { this.handleMenuDrawPolygon(); };
+            document.getElementById('menuDistances').onclick = () => { this.handleMenuDistances(); };
+            document.getElementById('menuCopyPoints').onclick = () => { this.handleMenuCopyPoints(); };
+            // Hide menu on next click anywhere
+            setTimeout(() => {
+                document.addEventListener('click', this.removeCustomMenuBound = this.removeCustomMenu.bind(this), { once: true });
+            }, 0);
+        }
+
+        removeCustomMenu() {
+            if (this.customMenu) {
+                this.customMenu.remove();
+                this.customMenu = null;
+            }
+            if (this.removeCustomMenuBound) {
+                document.removeEventListener('click', this.removeCustomMenuBound);
+                this.removeCustomMenuBound = null;
+            }
+        }
+
+        handleMenuDrawPolygon() {
+            // Draw polygon
+            const polygon = new google.maps.Polygon({
+                paths: this.tempPoints,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: this.state.map,
+                editable: true // Enable editing
+            });
+            // Calculate area and perimeter
+            const area = google.maps.geometry.spherical.computeArea(this.tempPoints);
+            const doinm = area / 2500;
+            let perimeter = 0;
+            for (let i = 0; i < this.tempPoints.length; i++) {
+                const p1 = this.tempPoints[i];
+                const p2 = this.tempPoints[(i+1)%this.tempPoints.length];
+                perimeter += google.maps.geometry.spherical.computeDistanceBetween(p1, p2);
+            }
+            // Set data to coordinatesSection
+            this.setPolygonDataToCoordinatesSection(area, doinm, perimeter, this.tempPoints);
+            // Show 'Done' button
+            this.showDoneEditButton(polygon);
+            // When polygon is clicked, enable editing and update card
+            polygon.addListener('click', () => {
+                polygon.setEditable(true);
+                this.showDoneEditButton(polygon);
+                this.updatePolygonCardFromPolygon(polygon);
+            });
+            // When editing ends, update card
+            polygon.getPath().addListener('set_at', () => {
+                this.updatePolygonCardFromPolygon(polygon);
+            });
+            polygon.getPath().addListener('insert_at', () => {
+                this.updatePolygonCardFromPolygon(polygon);
+            });
+            polygon.getPath().addListener('remove_at', () => {
+                this.updatePolygonCardFromPolygon(polygon);
+            });
+            // Add right-click popup menu for polygon
+            polygon.addListener('rightclick', (event) => {
+                this.showPolygonContextMenu(event, polygon);
+            });
+            this.clearTempPoints();
+            this.removeCustomMenu();
+        }
+
+        showPolygonContextMenu(event, polygon) {
+            this.removeCustomMenu();
+            const lang = window.APP_LANG || 'ar';
+            const menu = document.createElement('div');
+            menu.id = 'polygonContextMenu';
+            menu.style.position = 'absolute';
+            menu.style.zIndex = 10000;
+            menu.style.background = '#fff';
+            menu.style.border = '1px solid #ccc';
+            menu.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+            menu.style.padding = '8px 0';
+            menu.style.borderRadius = '6px';
+            menu.style.minWidth = '220px';
+            menu.style.fontFamily = 'inherit';
+            menu.style.top = event.domEvent.clientY + 'px';
+            menu.style.left = event.domEvent.clientX + 'px';
+            menu.innerHTML = `
+                <div style="padding:8px 16px;cursor:pointer;" id="polyMenuGetGPS">
+                  <span class="lang-ar" style="${lang === 'ar' ? '' : 'display:none;'}">نسخ إحداثيات GPS إلى المدخل</span>
+                  <span class="lang-en" style="${lang === 'en' ? '' : 'display:none;'}">Copy GPS Coordinates to Input</span>
+                </div>
+                <div style="padding:8px 16px;cursor:pointer; color:red;" id="polyMenuDelete">
+                  <span class="lang-ar" style="${lang === 'ar' ? '' : 'display:none;'}">حذف المضلع</span>
+                  <span class="lang-en" style="${lang === 'en' ? '' : 'display:none;'}">Delete Polygon</span>
+                </div>
+            `;
+            document.body.appendChild(menu);
+            this.customMenu = menu;
+            document.getElementById('polyMenuGetGPS').onclick = () => {
+                this.copyPolygonGPSToInput(polygon);
+                this.removeCustomMenu();
+            };
+            document.getElementById('polyMenuDelete').onclick = () => {
+                polygon.setMap(null);
+                this.removeCustomMenu();
+            };
+            setTimeout(() => {
+                document.addEventListener('click', this.removeCustomMenuBound = this.removeCustomMenu.bind(this), { once: true });
+            }, 0);
+        }
+
+        copyPolygonGPSToInput(polygon) {
+            const path = polygon.getPath();
+            // Check selected coordinate system
+            const selectedRadio = document.querySelector('input[name="coordinateSystem"]:checked');
+            const coordSystem = selectedRadio ? selectedRadio.value : 'utm';
+            const pointsArr = [];
+            for (let i = 0; i < path.getLength(); i++) {
+                const pt = path.getAt(i);
+                if (coordSystem === 'utm') {
+                    const utm = this.coordinateConverter.latLngToUTM(pt.lat(), pt.lng());
+                    pointsArr.push(`${utm[0].toFixed(0)},${utm[1].toFixed(0)}`);
+                } else {
+                    pointsArr.push(`${pt.lat().toFixed(8)},${pt.lng().toFixed(8)}`);
+                }
+            }
+            const textarea = document.getElementById('coordinateInput');
+            if (textarea) textarea.value = pointsArr.join('*');
+        }
+
+        showDoneEditButton(polygon) {
+            let btn = document.getElementById('doneEditPolygon');
+            if (!btn) return;
+            btn.style.display = '';
+            btn.onclick = () => {
+                polygon.setEditable(false);
+                btn.style.display = 'none';
+            };
+        }
+
+        updatePolygonCardFromPolygon(polygon) {
+            const path = polygon.getPath();
+            const points = [];
+            for (let i = 0; i < path.getLength(); i++) {
+                points.push(path.getAt(i));
+            }
+            const area = google.maps.geometry.spherical.computeArea(points);
+            const doinm = area / 2500;
+            let perimeter = 0;
+            for (let i = 0; i < points.length; i++) {
+                const p1 = points[i];
+                const p2 = points[(i+1)%points.length];
+                perimeter += google.maps.geometry.spherical.computeDistanceBetween(p1, p2);
+            }
+            this.setPolygonDataToCoordinatesSection(area, doinm, perimeter, points);
+        }
+
+        setPolygonDataToCoordinatesSection(area, doinm, perimeter, points) {
+            this.uiManager.showSection('coordinatesSection', true);
+            this.uiManager.showSection('resultsSection', true); // Ensure results section is visible
+            const coordinateList = document.getElementById('coordinateList');
+            // Update the summary card and distances in resultsSection
+            const resultsSection = document.getElementById('resultsSection');
+            // Build summary card content (not the wrapper)
+            const summaryContent = `
+                <h3 style="font-size:1.2em; margin-bottom:18px;"><i class="fas fa-calculator"></i> الحسابات</h3>
+                <div class="calculation-results" style="display:flex; flex-direction:column; gap:12px;">
+                    <div class="result-item" style="display:flex; justify-content:space-between;">
+                        <span class="result-label">المساحة الكلية:</span>
+                        <span class="result-value" style="color:#43a047; font-weight:bold;">${doinm.toFixed(4)} دنم</span>
+                    </div>
+                    <div class="result-item" style="display:flex; justify-content:space-between;">
+                        <span class="result-label">عدد النقاط:</span>
+                        <span class="result-value">${points.length}</span>
+                    </div>
+                    <div class="result-item" style="display:flex; justify-content:space-between;">
+                        <span class="result-label">المحيط:</span>
+                        <span class="result-value" style="color:#2196f3; font-weight:bold;">${perimeter.toFixed(4)} متر</span>
+                    </div>
+                </div>
+            `;
+            // Build distances card content (not the wrapper)
+            let distancesContent = '';
+            if (points.length > 1) {
+                distancesContent = `<h3 style="font-size:1.2em; margin-bottom:18px;"><i class="fas fa-ruler"></i> المسافات بين النقاط</h3>
+                    <div style="max-height:220px; overflow-y:auto;">`;
+                for (let i = 0; i < points.length; i++) {
+                    const next = (i + 1) % points.length;
+                    const dist = google.maps.geometry.spherical.computeDistanceBetween(points[i], points[next]);
+                    distancesContent += `
+                        <div style="display:flex; align-items:center; justify-content:space-between; background:#fff; border-radius:12px; box-shadow:0 2px 8px #f0f0f0; margin-bottom:10px; padding:12px 18px;">
+                            <span style="color:#e53935; font-weight:bold; font-size:1.1em; min-width:120px; text-align:left;">متر ${dist.toFixed(4)}</span>
+                            <span style="color:#333; font-size:1em;">:من النقطة ${i+1} إلى النقطة ${next+1}</span>
+                        </div>
+                    `;
+                }
+                distancesContent += `</div>`;
+            }
+            // Insert both as sections inside a single results-card
+            if (resultsSection) {
+                resultsSection.innerHTML = `<div class='results-card'>${summaryContent}${distancesContent}</div>`;
+            }
+            if (coordinateList) {
+                // Build points list (like قائمة الإحداثيات)
+                const lang = 'ar';
+                const pointLabel = { ar: 'النقطة', en: 'Point' };
+                const utmPoints = points.map(pt => this.coordinateConverter.latLngToUTM(pt.lat(), pt.lng()));
+                const pointsList = points.map((pt, idx) => {
+                    const utm = utmPoints[idx];
+                    return `
+                        <div class="coordinate-list-item" style="background:#f9f9f9; border:1.5px solid #43a047; border-radius:10px; margin-bottom:14px; padding:18px 20px; font-family:monospace;">
+                            <div style="font-weight:bold; color:#009688; margin-bottom:6px;">${pointLabel[lang]} ${idx+1}:</div>
+                            <div style="margin-bottom:2px;">UTM: ${utm[0].toFixed(4)}, ${utm[1].toFixed(4)}</div>
+                            <div>Lat/Lng: ${pt.lat().toFixed(8)}, ${pt.lng().toFixed(8)}</div>
+                        </div>
+                    `;
+                }).join('');
+                coordinateList.innerHTML = pointsList;
+            }
+            // Add flexbox CSS for resultsSection and results-card if not already present
+            if (!document.getElementById('resultsSectionFlexStyle')) {
+                const style = document.createElement('style');
+                style.id = 'resultsSectionFlexStyle';
+                style.innerHTML = `
+                    #resultsSection { display: flex; justify-content: center; gap: 32px; align-items: flex-start; }
+                    #resultsSection .results-card { width: 100%; max-width: 100%; }
+                    #resultsSection .results-card > div[style*='overflow-y:auto'] { max-height: 220px; overflow-y: auto; }
+                    @media (max-width: 900px) {
+                        #resultsSection { flex-direction: column; align-items: center; }
+                        #resultsSection .results-card { width: 100vw; max-width: 100vw; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        handleMenuDistances() {
+            let msg = '';
+            for (let i = 0; i < this.tempPoints.length - 1; i++) {
+                const d = google.maps.geometry.spherical.computeDistanceBetween(this.tempPoints[i], this.tempPoints[i+1]);
+                msg += `Distance ${i+1}: ${d.toFixed(2)} m\n`;
+            }
+            alert(msg);
+            this.removeCustomMenu();
+        }
+
+        handleMenuCopyPoints() {
+            // Format: one point per line, format depends on selected coordinate system
+            const selectedRadio = document.querySelector('input[name="coordinateSystem"]:checked');
+            const coordSystem = selectedRadio ? selectedRadio.value : 'utm';
+            let lines = [];
+            if (coordSystem === 'utm') {
+                lines = this.tempPoints.map(pt => {
+                    const utm = this.coordinateConverter.latLngToUTM(pt.lat(), pt.lng());
+                    return `${utm[0].toFixed(0)},${utm[1].toFixed(0)}`;
+                });
+            } else {
+                lines = this.tempPoints.map(pt => `${pt.lat().toFixed(8)},${pt.lng().toFixed(8)}`);
+            }
+            const textarea = document.getElementById('coordinateInput');
+            if (textarea) textarea.value = lines.join('\n');
+            this.removeCustomMenu();
         }
 
         // Bind event listeners
@@ -512,6 +837,11 @@
             // Add click listener for polygon selection
             polygonData.polygon.addListener('click', () => {
                 this.selectPolygon(polygonData.id);
+            });
+            
+            // Add right-click popup menu for polygon
+            polygonData.polygon.addListener('rightclick', (event) => {
+                this.showPolygonContextMenu(event, polygonData.polygon);
             });
             
             // Listen for path changes (vertex moved)
@@ -1138,8 +1468,8 @@
         // Load saved data from localStorage
         loadSavedData() {
             try {
-                const savedData = this.dataManager.loadData();
-                if (savedData && savedData.length > 0) {
+                const savedData = this.dataManager.loadData() || [];
+                if (savedData.length > 0) {
                     // Restore last saved state
                     const lastData = savedData[savedData.length - 1];
                     this.state.farmerName = lastData.farmerName || '';

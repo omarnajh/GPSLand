@@ -348,3 +348,33 @@ For technical support, feature requests, or bug reports:
 ---
 
 **Note**: This application requires a valid Google Maps API key for full functionality. Please ensure you have proper billing set up for your Google Cloud project. 
+
+# 🚦 كيفية استخدام التطبيق (How to Use)
+
+## 🇸🇦 بالعربية
+1. **انقر على الخريطة** لإضافة نقاط GPS. يمكنك إضافة أكثر من نقطتين لرسم مضلع.
+2. **عند إضافة 3 نقاط أو أكثر**، انقر بزر الفأرة الأيمن على الخريطة لعرض قائمة منبثقة:
+   - رسم مضلع وعرض البيانات
+   - الحصول على جميع المسافات
+   - نسخ نقاط GPS إلى المدخل
+3. **تعديل المضلع:** اسحب النقاط أو انقر عليه ثم اضغط "تم" بعد الانتهاء.
+4. **انقر بزر الفأرة الأيمن على أي مضلع** لعرض قائمة:
+   - نسخ إحداثيات GPS إلى المدخل
+   - حذف المضلع
+5. **نتائج الحسابات والمسافات** تظهر في البطاقات أعلى الصفحة.
+6. **تصدير/استيراد/طباعة:** استخدم الأزرار أسفل الصفحة.
+
+## 🇬🇧 In English
+1. **Click on the map** to add GPS points. You can add more than two points to draw a polygon.
+2. **After adding 3 or more points**, right-click on the map to show a popup menu:
+   - Draw Polygon & Show Data
+   - Get All Distances
+   - Copy GPS Points to Input
+3. **Edit the polygon:** Drag points or click it, then press "Done" when finished.
+4. **Right-click any polygon** to show a menu:
+   - Copy GPS Coordinates to Input
+   - Delete Polygon
+5. **Calculation results and distances** appear in the cards at the top of the page.
+6. **Export/Import/Print:** Use the buttons at the bottom of the page.
+
+--- 

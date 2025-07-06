@@ -222,398 +222,100 @@
       </div>
 
       <!-- Arabic Content -->
-      <div class="content-arabic">
-        <div class="help-content">
-          <div class="help-section">
-            <h2><i class="fas fa-info-circle"></i> نظرة عامة على التطبيق</h2>
-            <p>تطبيق تحديد الإحداثيات هو أداة متقدمة لرسم الإحداثيات الجغرافية وحساب المساحات. مصمم خصيصاً للاستخدام الزراعي والمساحي مع واجهة عربية سهلة الاستخدام ودعم كامل للغة الإنجليزية.</p>
-            
-            <div class="feature-grid">
-              <div class="feature-card">
-                <h4><i class="fas fa-map-marked-alt"></i> رسم الخرائط التفاعلية</h4>
+      <div class="help-content">
+        <div class="content-arabic" id="help-ar">
+          <section class="help-section">
+            <h2><i class="fas fa-map-marked-alt"></i> دليل البدء السريع: كيفية استخدام أداة رسم الإحداثيات</h2>
+            <ol class="step-list">
+              <li class="step-item">افتح الصفحة الرئيسية (index.html) وستظهر لك الخريطة.</li>
+              <li class="step-item">انقر على الخريطة لإضافة نقاط GPS. يمكنك إضافة أكثر من نقطتين لرسم مضلع.</li>
+              <li class="step-item">بعد إضافة 3 نقاط أو أكثر، انقر بزر الفأرة الأيمن على الخريطة لعرض قائمة منبثقة:
                 <ul>
-                  <li>خرائط Google عالية الدقة</li>
-                  <li>أنواع خرائط متعددة (طرق، أقمار صناعية، هجين، تضاريس)</li>
-                  <li>عرض الإحداثيات في الوقت الفعلي</li>
-                  <li>تحويل تلقائي بين أنظمة الإحداثيات</li>
-                  <li>دعم أنظمة إحداثيات متعددة (UTM و Lat/Lon)</li>
+                  <li>رسم مضلع وعرض البيانات: يرسم مضلعاً ويعرض المساحة والمحيط وعدد النقاط.</li>
+                  <li>الحصول على جميع المسافات: يعرض المسافات بين كل نقطتين متتاليتين.</li>
+                  <li>نسخ نقاط GPS إلى المدخل: ينسخ الإحداثيات إلى مربع الإدخال بالتنسيق المختار.</li>
                 </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-layer-group"></i> إدارة المضلعات المتعددة</h4>
+              </li>
+              <li class="step-item">يمكنك تعديل المضلع بسحب النقاط أو النقر عليه ثم الضغط على زر "تم" بعد الانتهاء.</li>
+              <li class="step-item">انقر بزر الفأرة الأيمن على أي مضلع لعرض قائمة:
                 <ul>
-                  <li>رسم عدة مضلعات في نفس الوقت</li>
-                  <li>إدارة منفصلة لكل مضلع</li>
-                  <li>ألوان مختلفة لكل منطقة (تعيين تلقائي للألوان عند الاستيراد)</li>
-                  <li>حسابات منفصلة لكل مضلع</li>
-                  <li>تصدير جميع المضلعات معاً</li>
+                  <li>نسخ إحداثيات GPS إلى المدخل</li>
+                  <li>حذف المضلع</li>
                 </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-calculator"></i> حسابات متقدمة</h4>
-                <ul>
-                  <li>حساب المساحة بالدونم</li>
-                  <li>قياس المحيط بالأمتار</li>
-                  <li>حساب المسافات بين النقاط</li>
-                  <li>نتائج فورية ودقيقة</li>
-                  <li>إجمالي المساحات لجميع المضلعات</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-download"></i> تصدير البيانات</h4>
-                <ul>
-                  <li><strong>تصدير JSON:</strong> يحتوي على جميع البيانات بتنسيق منظم</li>
-                  <li><strong>تصدير CSV:</strong> ملف جدول بيانات منظم للتحليل</li>
-                  <li><strong>تصدير KML:</strong> ملف خرائط Google Earth</li>
-                  <li><strong>تصدير متعدد:</strong> تصدير جميع المضلعات في ملف واحد</li>
-                  <li><strong>تسمية تلقائية:</strong> يتم تسمية الملفات بالتاريخ والوقت</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-file-import"></i> استيراد البيانات</h4>
-                <ul>
-                  <li><strong>استيراد متعدد:</strong> اختيار عدة ملفات JSON في نفس الوقت</li>
-                  <li><strong>ألوان مميزة:</strong> كل مضلع مستورد يحصل على لون مختلف</li>
-                  <li><strong>عرض تلقائي:</strong> عرض التفاصيل والإحداثيات تلقائياً</li>
-                  <li><strong>دعم UTM/LatLng:</strong> استيراد من كلا نظامي الإحداثيات</li>
-                  <li><strong>تحويل تلقائي:</strong> تحويل الإحداثيات للعرض على الخريطة</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-edit"></i> تعديل المضلعات المتقدم</h4>
-                <ul>
-                  <li>المضلعات قابلة للتعديل دائماً (لا حاجة لوضع تحرير خاص)</li>
-                  <li>سحب النقاط الكبيرة لتعديل الشكل بسهولة</li>
-                  <li>دبل كليك على الحافة لإضافة نقطة جديدة</li>
-                  <li>دبل كليك على نقطة لحذفها (إذا كان >3 نقاط)</li>
-                  <li>تحديث فوري للمساحة والمحيط والمسافات عند التعديل</li>
-                  <li>مؤشرات بصرية (مؤشر اليد/السحب عند التعديل)</li>
-                  <li>تلميحات وأدوات مساعدة أثناء التعديل</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-file-import"></i> استيراد وتصدير البيانات</h4>
-                <ul>
-                  <li>استيراد عدة ملفات JSON دفعة واحدة</li>
-                  <li>تعيين لون مميز تلقائياً لكل مضلع مستورد</li>
-                  <li>عرض تفاصيل المضلع الأول تلقائياً بعد الاستيراد</li>
-                  <li>تصدير جميع المضلعات معاً أو بشكل منفصل (JSON, CSV, KML)</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-history"></i> التراجع والإعادة</h4>
-                <ul>
-                  <li>تراجع عن آخر 20 إجراء</li>
-                  <li>إعادة الإجراءات الملغاة</li>
-                  <li>حفظ تلقائي في المتصفح واستعادة البيانات عند إعادة التحميل</li>
-                  <li>إدارة كاملة لتاريخ التعديلات</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-users"></i> عداد الزوار</h4>
-                <ul>
-                  <li>عداد زوار يظهر في تذييل الصفحة (محلي لكل جهاز)</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-language"></i> دعم اللغات</h4>
-                <ul>
-                  <li>واجهة عربية بالكامل (RTL)</li>
-                  <li>دعم اللغة الإنجليزية مع تبديل فوري</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-mouse"></i> كيفية استخدام التطبيق</h2>
-            
-            <h3><i class="fas fa-edit"></i> إدخال الإحداثيات</h3>
-            <div class="step-list">
-              <div class="step-item">
-                <strong>الخطوة الأولى:</strong> اختر نظام الإحداثيات (UTM أو Lat/Lon)
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الثانية:</strong> انتقل إلى قسم "إدخال الإحداثيات"
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الثالثة:</strong> أدخل الإحداثيات بالتنسيق المطلوب
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الرابعة:</strong> اضبط خيارات الرسم (اللون، الشفافية، اسم المالك)
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الخامسة:</strong> اضغط "رسم المضلع" لعرض النتائج
-              </div>
-              <div class="step-item">
-                <strong>الخطوة السادسة:</strong> كرر العملية لإضافة مضلعات أخرى
-              </div>
-            </div>
-
-            <h3><i class="fas fa-draw-polygon"></i> رسم الخطوط</h3>
-            <div class="step-list">
-              <div class="step-item">
-                <strong>الخطوة الأولى:</strong> انقر بالزر الأيمن للماوس في نقطة البداية
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الثانية:</strong> انقر بالزر الأيمن مرة أخرى في نقطة النهاية
-              </div>
-              <div class="step-item">
-                <strong>الخطوة الثالثة:</strong> ستظهر المسافة على الخط تلقائياً
-              </div>
-            </div>
-
-            <h3><i class="fas fa-layer-group"></i> إدارة المضلعات</h3>
-            <div class="step-list">
-              <div class="step-item">
-                <strong>عرض المضلع:</strong> انقر على "عرض" في قائمة المضلعات
-              </div>
-              <div class="step-item">
-                <strong>حذف المضلع:</strong> انقر على "حذف" لإزالة مضلع معين
-              </div>
-              <div class="step-item">
-                <strong>تحديد المضلع:</strong> انقر على المضلع في الخريطة لتحديده
-              </div>
-              <div class="step-item">
-                <strong>تعديل المضلع:</strong> اسحب النقاط المرقمة لتعديل الشكل
-              </div>
-              <div class="step-item">
-                <strong>إضافة نقطة:</strong> دبل كليك على حافة المضلع لإضافة نقطة جديدة
-              </div>
-              <div class="step-item">
-                <strong>حذف نقطة:</strong> دبل كليك على نقطة مرقمة لحذفها
-              </div>
-            </div>
-            
-            <h3><i class="fas fa-file-import"></i> استيراد وتصدير البيانات</h3>
-            <div class="step-list">
-              <div class="step-item">
-                <strong>تصدير البيانات:</strong> انقر على "تصدير البيانات" لتحميل ملف JSON
-              </div>
-              <div class="step-item">
-                <strong>استيراد البيانات:</strong> انقر على "استيراد البيانات" واختر ملفات JSON
-              </div>
-              <div class="step-item">
-                <strong>استيراد متعدد:</strong> يمكن اختيار عدة ملفات في نفس الوقت
-              </div>
-              <div class="step-item">
-                <strong>ألوان مميزة:</strong> كل مضلع مستورد يحصل على لون مختلف تلقائياً
-              </div>
-              <div class="step-item">
-                <strong>عرض التفاصيل:</strong> يتم عرض تفاصيل المضلع الأول تلقائياً
-              </div>
-            </div>
-            
-            <h3><i class="fas fa-undo"></i> التراجع والإعادة</h3>
-            <div class="step-list">
-              <div class="step-item">
-                <strong>التراجع:</strong> انقر على "تراجع" للعودة للخطوة السابقة
-              </div>
-              <div class="step-item">
-                <strong>الإعادة:</strong> انقر على "إعادة" لتطبيق الإجراء الملغي
-              </div>
-              <div class="step-item">
-                <strong>حفظ تلقائي:</strong> يتم حفظ جميع التغييرات تلقائياً
-              </div>
-              <div class="step-item">
-                <strong>استعادة البيانات:</strong> استعادة البيانات المحفوظة عند إعادة فتح التطبيق
-              </div>
-            </div>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-code"></i> تنسيق الإحداثيات</h2>
-            
-            <h3><i class="fas fa-globe"></i> أنظمة الإحداثيات المدعومة</h3>
-            <p>يدعم التطبيق نظامين للإحداثيات:</p>
-            
-            <div class="feature-grid">
-              <div class="feature-card">
-                <h4><i class="fas fa-grid-3"></i> نظام UTM</h4>
-                <ul>
-                  <li>تنسيق: <code>Easting,Northing</code></li>
-                  <li>مثال: <code>123456.78,9876543.21</code></li>
-                  <li>منطقة UTM: 38N</li>
-                  <li>مناسب للمسح الزراعي</li>
-                </ul>
-              </div>
-              
-              <div class="feature-card">
-                <h4><i class="fas fa-map-marker-alt"></i> نظام Lat/Lon</h4>
-                <ul>
-                  <li>تنسيق: <code>Latitude,Longitude</code></li>
-                  <li>مثال: <code>31.9539,35.9106</code></li>
-                  <li>نظام WGS84</li>
-                  <li>مناسب للاستخدام العام</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3><i class="fas fa-list"></i> التنسيقات المدعومة</h3>
-            <p>يقبل التطبيق الإحداثيات بالتنسيقات التالية:</p>
-            
-            <div class="code-block">
-              # تنسيق نقطة واحدة
-              Easting,Northing (UTM)
-              123456.78,9876543.21
-              
-              Latitude,Longitude (Lat/Lon)
-              31.9539,35.9106
-              
-              # تنسيق نقاط متعددة (سطر واحد لكل نقطة)
-              123456.78,9876543.21
-              234567.89,9876544.32
-              345678.90,9876545.43
-              
-              # تنسيق نقاط متعددة مع فاصل *
-              123456.78,9876543.21*234567.89,9876544.32
-              345678.90,9876545.43*456789.01,9876546.54
-            </div>
-
-            <h3><i class="fas fa-exclamation-triangle"></i> ملاحظات مهمة</h3>
+              </li>
+              <li class="step-item">نتائج الحسابات (المساحة، المحيط، عدد النقاط) والمسافات بين النقاط تظهر في البطاقات أعلى الصفحة.</li>
+              <li class="step-item">يمكنك تصدير أو استيراد البيانات، أو نسخ الإحداثيات، أو طباعة الخريطة من خلال الأزرار أسفل الصفحة.</li>
+              <li class="step-item">يمكنك اختيار اللغة (العربية أو الإنجليزية) من الأعلى لتغيير لغة الواجهة.</li>
+            </ol>
+          </section>
+          <section class="help-section">
+            <h2><i class="fas fa-star"></i> الميزات الرئيسية</h2>
             <ul>
-              <li>اختر نظام الإحداثيات المناسب قبل إدخال البيانات</li>
-              <li>الحد الأدنى للنقاط هو 3 نقاط لرسم المضلع</li>
-              <li>استخدم الفاصلة (,) للفصل بين الإحداثيات</li>
-              <li>استخدم * للفصل بين النقاط في نفس السطر</li>
-              <li>يمكن إدخال عدة أسطر للنقاط المتعددة</li>
-              <li>سيتم تحويل الإحداثيات تلقائياً للعرض على الخريطة</li>
-              <li>يمكن تعديل المضلعات بعد رسمها بسحب النقاط المرقمة</li>
-              <li>دبل كليك على حافة المضلع لإضافة نقطة جديدة</li>
-              <li>دبل كليك على نقطة مرقمة لحذفها (إذا كان المضلع يحتوي على أكثر من 3 نقاط)</li>
-              <li>يتم حفظ جميع التغييرات تلقائياً في المتصفح</li>
+              <li>أنواع خرائط متعددة: طرق، أقمار صناعية، هجينة، وتضاريس</li>
+              <li>عرض الإحداثيات في الوقت الفعلي عند النقر على الخريطة</li>
+              <li>تحويل تلقائي بين UTM و Lat/Lng مع التحقق من صحة البيانات</li>
+              <li>رسم خطوط وقياس المسافة بين نقطتين</li>
+              <li>تحرير متقدم للمضلعات: سحب النقاط، إضافة/إزالة بالنقر المزدوج، تحديث فوري للنتائج</li>
+              <li>إدارة عدة مضلعات في نفس الوقت مع ألوان مميزة لكل مضلع</li>
+              <li>تخصيص الألوان والشفافية واسم المزارع/المالك</li>
+              <li>حساب المساحة بالدونم، المحيط بالأمتار، والمسافات بين النقاط</li>
+              <li>تصدير واستيراد البيانات بصيغ JSON, CSV, KML</li>
+              <li>دعم الطباعة (A4) للخرائط والنتائج</li>
+              <li>حفظ تلقائي للبيانات وإدارة تاريخ التعديلات</li>
+              <li>دعم كامل للعربية والإنجليزية مع تبديل فوري</li>
+              <li>عداد زوار محلي يظهر في التذييل</li>
+              <li>إشعارات فورية وحالة تحميل</li>
+              <li>اختصارات لوحة المفاتيح للوصول السريع</li>
+              <li>دعم كامل للأجهزة المحمولة وتصميم متجاوب</li>
             </ul>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-cog"></i> خيارات التخصيص</h2>
-            
-            <h3><i class="fas fa-palette"></i> تخصيص المظهر</h3>
+          </section>
+        </div>
+        <div class="content-english" id="help-en">
+          <section class="help-section">
+            <h2><i class="fas fa-map-marked-alt"></i> Quick Start Guide: How to Use the GPS Coordinate Plotter</h2>
+            <ol class="step-list">
+              <li class="step-item">Open the main page (index.html) and the map will appear.</li>
+              <li class="step-item">Click on the map to add GPS points. You can add more than two points to draw a polygon.</li>
+              <li class="step-item">After adding 3 or more points, right-click on the map to show a popup menu:
+                <ul>
+                  <li>Draw Polygon & Show Data: Draws a polygon and displays area, perimeter, and point count.</li>
+                  <li>Get All Distances: Shows distances between each pair of consecutive points.</li>
+                  <li>Copy GPS Points to Input: Copies coordinates to the input box in the selected format.</li>
+                </ul>
+              </li>
+              <li class="step-item">You can edit the polygon by dragging points or clicking it, then press "Done" when finished.</li>
+              <li class="step-item">Right-click any polygon to show a menu:
+                <ul>
+                  <li>Copy GPS Coordinates to Input</li>
+                  <li>Delete Polygon</li>
+                </ul>
+              </li>
+              <li class="step-item">Calculation results (area, perimeter, point count) and distances appear in the cards at the top of the page.</li>
+              <li class="step-item">You can export/import data, copy coordinates, or print the map using the buttons at the bottom of the page.</li>
+              <li class="step-item">You can select the language (Arabic or English) from the top to change the interface language.</li>
+            </ol>
+          </section>
+          <section class="help-section">
+            <h2><i class="fas fa-star"></i> Main Features</h2>
             <ul>
-              <li><strong>لون المضلع:</strong> اختر أي لون من لوحة الألوان</li>
-              <li><strong>الشفافية:</strong> اضبط مستوى الشفافية من 10% إلى 100%</li>
-              <li><strong>اسم المالك:</strong> أدخل اسم الفلاح أو المالك للعرض على الخريطة</li>
-              <li><strong>نوع الخريطة:</strong> اختر بين الطرق، الأقمار الصناعية، الهجين، أو التضاريس</li>
+              <li>Multiple map types: Roadmap, Satellite, Hybrid, and Terrain</li>
+              <li>Real-time coordinate display when clicking the map</li>
+              <li>Automatic conversion between UTM and Lat/Lng with validation</li>
+              <li>Draw lines and measure distance between two points</li>
+              <li>Advanced polygon editing: drag points, double-click to add/remove, instant updates</li>
+              <li>Manage multiple polygons at once, each with a unique color</li>
+              <li>Customize colors, opacity, and farmer/owner name</li>
+              <li>Calculate area (dunam), perimeter (meters), and distances between points</li>
+              <li>Export/import data in JSON, CSV, and KML formats</li>
+              <li>Print (A4) maps and results</li>
+              <li>Auto-save data and manage edit history</li>
+              <li>Full support for Arabic and English with instant switching</li>
+              <li>Local visitor counter in the footer</li>
+              <li>Instant notifications and loading indicators</li>
+              <li>Keyboard shortcuts for quick access</li>
+              <li>Full mobile support and responsive design</li>
             </ul>
-
-            <h3><i class="fas fa-map"></i> التحكم في الخريطة</h3>
-            <ul>
-              <li><strong>التكبير والتصغير:</strong> استخدم عجلة الماوس أو أزرار + و -</li>
-              <li><strong>التحريك:</strong> اسحب الخريطة بالماوس للتنقل</li>
-              <li><strong>عرض الإحداثيات:</strong> انقر بالزر الأيمن في أي مكان على الخريطة</li>
-              <li><strong>تغيير نوع الخريطة:</strong> استخدم أزرار الراديو في قسم التحكم</li>
-            </ul>
-
-            <h3><i class="fas fa-history"></i> التراجع والإعادة</h3>
-            <ul>
-              <li><strong>التراجع:</strong> استخدم زر "تراجع" لإلغاء الإجراء الأخير</li>
-              <li><strong>الإعادة:</strong> استخدم زر "إعادة" لتنفيذ الإجراء الملغي</li>
-              <li><strong>حفظ تلقائي:</strong> يتم حفظ البيانات تلقائياً في المتصفح</li>
-              <li><strong>استعادة البيانات:</strong> يتم استعادة البيانات المحفوظة عند إعادة فتح التطبيق</li>
-            </ul>
-
-            <h3><i class="fas fa-globe"></i> اختيار نظام الإحداثيات</h3>
-            <ul>
-              <li><strong>نظام UTM:</strong> مناسب للمسح الزراعي والهندسي</li>
-              <li><strong>نظام Lat/Lon:</strong> مناسب للاستخدام العام والخرائط</li>
-              <li><strong>تحويل تلقائي:</strong> يتم تحويل الإحداثيات تلقائياً للعرض</li>
-              <li><strong>عرض مزدوج:</strong> عرض الإحداثيات في كلا النظامين</li>
-            </ul>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-file-export"></i> تصدير وطباعة البيانات</h2>
-            
-            <h3><i class="fas fa-download"></i> تصدير البيانات</h3>
-            <ul>
-              <li><strong>تصدير JSON:</strong> يحتوي على جميع البيانات بتنسيق منظم</li>
-              <li><strong>تصدير CSV:</strong> ملف جدول بيانات منظم للتحليل</li>
-              <li><strong>تصدير KML:</strong> ملف خرائط Google Earth</li>
-              <li><strong>تصدير متعدد:</strong> تصدير جميع المضلعات في ملف واحد</li>
-              <li><strong>تسمية تلقائية:</strong> يتم تسمية الملفات بالتاريخ والوقت</li>
-            </ul>
-
-            <h3><i class="fas fa-print"></i> طباعة الخريطة</h3>
-            <ul>
-              <li>اضغط "طباعة الخريطة" لفتح نافذة الطباعة</li>
-              <li>سيتم إخفاء عناصر التحكم وعرض الخريطة والنتائج فقط</li>
-              <li>يمكن طباعة الخريطة والبيانات معاً</li>
-              <li>يدعم الطباعة بتنسيق A4</li>
-              <li>طباعة جميع المضلعات المرسومة</li>
-            </ul>
-
-            <h3><i class="fas fa-layer-group"></i> إدارة المضلعات</h3>
-            <ul>
-              <li><strong>قائمة المضلعات:</strong> عرض جميع المضلعات المرسومة</li>
-              <li><strong>إجمالي المساحة:</strong> حساب مجموع مساحات جميع المضلعات</li>
-              <li><strong>حذف مضلع:</strong> إزالة مضلع معين من الخريطة</li>
-              <li><strong>تحديد مضلع:</strong> عرض تفاصيل مضلع معين</li>
-            </ul>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-exclamation-circle"></i> استكشاف الأخطاء</h2>
-            
-            <h3><i class="fas fa-times-circle"></i> مشاكل شائعة وحلولها</h3>
-            
-            <div class="feature-card">
-              <h4><i class="fas fa-map"></i> الخريطة لا تتحمل</h4>
-              <ul>
-                <li>تحقق من اتصال الإنترنت</li>
-                <li>تأكد من أن Google Maps API يعمل</li>
-                <li>امسح ذاكرة التخزين المؤقت للمتصفح</li>
-              </ul>
-            </div>
-            
-            <div class="feature-card">
-              <h4><i class="fas fa-coordinates"></i> الإحداثيات لا تظهر</h4>
-              <ul>
-                <li>تحقق من تنسيق الإحداثيات</li>
-                <li>تأكد من وجود 3 نقاط على الأقل</li>
-                <li>تحقق من أن الإحداثيات في النطاق الصحيح</li>
-              </ul>
-            </div>
-            
-            <div class="feature-card">
-              <h4><i class="fas fa-download"></i> التصدير لا يعمل</h4>
-              <ul>
-                <li>تأكد من رسم المضلع أولاً</li>
-                <li>تحقق من إعدادات التحميل في المتصفح</li>
-                <li>تأكد من صلاحيات الملفات</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="help-section">
-            <h2><i class="fas fa-info"></i> معلومات تقنية</h2>
-            
-            <h3><i class="fas fa-server"></i> المتطلبات التقنية</h3>
-            <ul>
-              <li><strong>المتصفح:</strong> Chrome 60+, Firefox 55+, Safari 12+, Edge 79+</li>
-              <li><strong>الاتصال:</strong> إنترنت مطلوب لخرائط Google</li>
-              <li><strong>الذاكرة:</strong> 4GB RAM على الأقل</li>
-              <li><strong>الشاشة:</strong> دقة 1024x768 على الأقل</li>
-            </ul>
-
-            <h3><i class="fas fa-cogs"></i> نظام الإحداثيات</h3>
-            <ul>
-              <li><strong>UTM Zone:</strong> 38N (WGS84)</li>
-              <li><strong>الإسقاط:</strong> EPSG:32638</li>
-              <li><strong>نظام Lat/Lon:</strong> WGS84 (EPSG:4326)</li>
-              <li><strong>وحدة المساحة:</strong> الدونم (2500 متر مربع)</li>
-              <li><strong>وحدة المسافة:</strong> متر</li>
-              <li><strong>التحويل:</strong> proj4.js للتحويل بين الأنظمة</li>
-            </ul>
-          </div>
+          </section>
         </div>
       </div>
 
